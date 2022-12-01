@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myApp.gamestore.mapper.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.myApp.gamestore.entity.User">
+            <id property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="nickName" column="nick_name" jdbcType="VARCHAR"/>
+            <result property="email" column="email" jdbcType="VARCHAR"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
+            <result property="balance" column="balance" jdbcType="INTEGER"/>
+            <result property="regDate" column="reg_date" jdbcType="TIMESTAMP"/>
+            <result property="latestDate" column="latest_date" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        name,nick_name,email,
+        avatar,balance,reg_date,
+        lastest_date
+    </sql>
+
+    <update id="createLibrary">
+        CREATE TABLE ${name} (
+                                    `game_id` int NOT NULL,
+                                    `game_name` varchar(255) NOT NULL,
+                                    PRIMARY KEY (`game_id`)
+        )
+    </update>
+</mapper>
