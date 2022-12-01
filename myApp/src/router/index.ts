@@ -7,6 +7,7 @@ import Chat from "@/components/Chat/Chat.vue"
 import UserInfo from "@/components/User/UserInfo.vue"
 import Community from "@/components/Community/Community.vue"
 import Developer from "@/views/DeveloperView.vue"
+import DeveloperPay from "@/components/Pay/DeveloperPay.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -57,6 +58,11 @@ const router = createRouter({
           path:'/developer',
           name:'developer',
           component:Developer,
+        },
+        {
+          path:'/pay/developerPay',
+          name:'developerPay',
+          component:DeveloperPay,
         },
       ]
     },
