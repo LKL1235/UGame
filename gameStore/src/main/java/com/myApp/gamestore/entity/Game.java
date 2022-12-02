@@ -55,6 +55,11 @@ public class Game implements Serializable {
      */
     private String state;
 
+    /**
+     * 
+     */
+    private Double price;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -77,7 +82,8 @@ public class Game implements Serializable {
             && (this.getFiles() == null ? other.getFiles() == null : this.getFiles().equals(other.getFiles()))
             && (this.getTags() == null ? other.getTags() == null : this.getTags().equals(other.getTags()))
             && (this.getSales() == null ? other.getSales() == null : this.getSales().equals(other.getSales()))
-            && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()));
+            && (this.getState() == null ? other.getState() == null : this.getState().equals(other.getState()))
+            && (this.getPrice() == null ? other.getPrice() == null : this.getPrice().equals(other.getPrice()));
     }
 
     @Override
@@ -92,6 +98,7 @@ public class Game implements Serializable {
         result = prime * result + ((getTags() == null) ? 0 : getTags().hashCode());
         result = prime * result + ((getSales() == null) ? 0 : getSales().hashCode());
         result = prime * result + ((getState() == null) ? 0 : getState().hashCode());
+        result = prime * result + ((getPrice() == null) ? 0 : getPrice().hashCode());
         return result;
     }
 
@@ -109,6 +116,7 @@ public class Game implements Serializable {
         sb.append(", tags=").append(tags);
         sb.append(", sales=").append(sales);
         sb.append(", state=").append(state);
+        sb.append(", price=").append(price);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
