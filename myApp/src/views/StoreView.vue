@@ -16,7 +16,7 @@
         <div>
           <n-avatar
               :size="20"
-              :src="avatar===null?'/src/assets/unLogin.png':avatar"
+              :src="avatar===null?'/unLogin.png':avatar"
               style="float: left;margin: 7px 6px 0px 7px"
           />
         </div>

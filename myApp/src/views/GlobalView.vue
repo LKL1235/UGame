@@ -64,7 +64,7 @@
 <!--    :src="User.$state.user.isLogin?User.$state.user.avatar:'/src/assets/unLogin.png'"-->
       <n-avatar
         size="small"
-        :src="User.$state.user.avatar!==null?User.$state.user.avatar:'/src/assets/unLogin.png'"
+        :src="User.$state.user.avatar!==null?User.$state.user.avatar:'unLogin.png'"
         class="pointerStyle"
         style="top: 5px;border-style:outset;border-color: #52a2c2"
         :style="{position:'absolute',left:avatarLeft}"

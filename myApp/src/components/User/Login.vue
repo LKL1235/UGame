@@ -2,7 +2,7 @@
 <!--  全局背景-->
   <div style="background-color: #181A21;height: 833px">
 <!--    背景图-->
-    <img src="/src/assets/background.jpg" style="position: relative;left:200px;z-index: 1;height: 826px">
+    <img src="/background.jpg" style="position: relative;left:200px;z-index: 1;height: 826px">
 <!--    登录框-->
     <a style="color: #FFFFFF;position: absolute;top: 100px;left: 620px;font-size: 40px;z-index: 2">{{isRegister?"注册":"登录"}}</a>
 
@@ -42,7 +42,7 @@
         <button id="loginButton" @click="handleValidateLoginButtonClick">登录</button>
         <router-link to="" class="link">请求帮助，我无法登录</router-link>
       </n-form>
-      <img src="src/assets/join_pc.png" style="width: 200px;position: fixed;left: 1070px;top: 210px;">
+      <img src="../../../public/join_pc.png" style="width: 200px;position: fixed;left: 1070px;top: 210px;">
       <a style="width:200px;white-space:pre-line ;color: #BDBEBF;position: fixed;top: 360px;left: 1100px;font-size: 28px">加入 UGame，</a>
       <a style="width:200px;white-space:pre-line ;color: #BDBEBF;position: fixed;top: 400px;left: 1090px;font-size: 28px">探索数千款精彩游戏。</a>
       <button id="register" @click="gotoRegister">加入UGame</button>
@@ -113,7 +113,7 @@
           <!--注册-->
           <n-button id="RegisterButton" @click="handleValidateButtonClick">注册</n-button>
         </n-form>
-        <img src="src/assets/join_pc.png" style="width: 200px;position: fixed;left: 1070px;top: 210px;">
+        <img src="/join_pc.png" style="width: 200px;position: fixed;left: 1070px;top: 210px;">
         <a style="width:200px;white-space:pre-line ;color: #BDBEBF;position: fixed;top: 380px;left: 1100px;font-size: 28px;z-index: 3">已有UGame账户？</a>
         <a style="width:200px;white-space:pre-line ;color: #BDBEBF;position: fixed;top: 480px;left: 1120px;font-size: 28px;z-index: 3">立即登录！</a>
         <button id="login" @click="gotoLogin">登录UGame</button>
