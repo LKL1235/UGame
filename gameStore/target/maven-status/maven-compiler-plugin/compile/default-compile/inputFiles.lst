@@ -28,6 +28,7 @@ F:\homework\毕设\UGameGit\UGame\gameStore\src\main\java\com\myApp\gamestore\en
 F:\homework\毕设\UGameGit\UGame\gameStore\src\main\java\com\myApp\gamestore\service\impl\UserServiceImpl.java
 F:\homework\毕设\UGameGit\UGame\gameStore\src\main\java\com\myApp\gamestore\entity\Game.java
 F:\homework\毕设\UGameGit\UGame\gameStore\src\main\java\com\myApp\gamestore\service\IsLoginVerifyService.java
+F:\homework\毕设\UGameGit\UGame\gameStore\src\main\java\com\myApp\gamestore\DTO\LibraryDTO.java
 F:\homework\毕设\UGameGit\UGame\gameStore\src\main\java\com\myApp\gamestore\controller\AliPay.java
 F:\homework\毕设\UGameGit\UGame\gameStore\src\main\java\com\myApp\gamestore\entity\Orders.java
 F:\homework\毕设\UGameGit\UGame\gameStore\src\main\java\com\myApp\gamestore\mapper\UserMapper.java

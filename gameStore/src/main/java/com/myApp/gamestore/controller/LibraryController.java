@@ -1,5 +1,7 @@
 package com.myApp.gamestore.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.myApp.gamestore.DTO.LibraryDTO;
 import com.myApp.gamestore.entity.Library;
 import com.myApp.gamestore.service.LibraryService;
 import com.myApp.gamestore.utils.ResultCode;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,11 +30,11 @@ public class LibraryController {
 
     @RequestMapping("/getLibrary/{name}")
     public myResult getLibrary(@PathVariable String name){
-        try {
-            List<Library> list=libraryService.getLibrary(name);
-            return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
-        }catch (Exception e) {
-            return new myResult(ResultCode.FAILURE.getCode(), "库不存在");
-        }
+        QueryWrapper<Library> libraryQueryWrapper = new QueryWrapper<>();
+        libraryQueryWrapper.eq("username",name);
+        List<Library> list=libraryService.list(libraryQueryWrapper);
+        List<LibraryDTO> libraryDTOList = new ArrayList<>();
+        list.forEach(item->{libraryDTOList.add(new LibraryDTO(item.getGameId(),item.getGameName()));});
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),libraryDTOList);
     }
 }

@@ -14,11 +14,18 @@
             <result property="sales" column="sales" jdbcType="INTEGER"/>
             <result property="state" column="state" jdbcType="VARCHAR"/>
             <result property="price" column="price" jdbcType="FLOAT"/>
+            <result property="introduce" column="introduce" jdbcType="VARCHAR"/>
+            <result property="about" column="about" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
         game_id,game_name,repository,
         images,files,tags,
-        sales,state,price
+        sales,state,price,
+        introduce,about
     </sql>
+
+    <select id="gameShow" resultType="com.myApp.gamestore.entity.Game">
+        SELECT * FROM game ORDER BY sales asc limit 5;
+    </select>
 </mapper>

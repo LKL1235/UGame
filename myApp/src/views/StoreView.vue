@@ -3,11 +3,13 @@
   <div class="storeMain">
 
     <!--  固定头  -->
-    <div style="position:relative;background-color: rgb(0 0 0 / 0%);z-index: 5">
+    <div style="position:relative;background-color: rgb(0 0 0 / 0%);z-index: 5;margin-bottom: 50px">
       <!--愿望单-->
       <div class="wishList pointerStyle">
         <a>愿望单</a>
       </div>
+
+
       <!--    搜索框-->
       <div class="searchBox">
 

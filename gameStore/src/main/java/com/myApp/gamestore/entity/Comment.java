@@ -9,11 +9,11 @@ import lombok.Data;
 
 /**
  * 
- * @TableName library
+ * @TableName comment
  */
-@TableName(value ="library")
+@TableName(value ="comment")
 @Data
-public class Library implements Serializable {
+public class Comment implements Serializable {
     /**
      * 
      */
@@ -23,17 +23,17 @@ public class Library implements Serializable {
     /**
      * 
      */
-    private String username;
-
-    /**
-     * 
-     */
     private Integer gameId;
 
     /**
      * 
      */
-    private String gameName;
+    private String content;
+
+    /**
+     * 
+     */
+    private Integer type;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
@@ -49,11 +49,11 @@ public class Library implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Library other = (Library) that;
+        Comment other = (Comment) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
             && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
-            && (this.getGameName() == null ? other.getGameName() == null : this.getGameName().equals(other.getGameName()));
+            && (this.getContent() == null ? other.getContent() == null : this.getContent().equals(other.getContent()))
+            && (this.getType() == null ? other.getType() == null : this.getType().equals(other.getType()));
     }
 
     @Override
@@ -61,9 +61,9 @@ public class Library implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
         result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
-        result = prime * result + ((getGameName() == null) ? 0 : getGameName().hashCode());
+        result = prime * result + ((getContent() == null) ? 0 : getContent().hashCode());
+        result = prime * result + ((getType() == null) ? 0 : getType().hashCode());
         return result;
     }
 
@@ -74,9 +74,9 @@ public class Library implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", username=").append(username);
         sb.append(", gameId=").append(gameId);
-        sb.append(", gameName=").append(gameName);
+        sb.append(", content=").append(content);
+        sb.append(", type=").append(type);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
