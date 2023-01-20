@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myApp.gamestore.mapper.DeveloperMapper">
+
+    <resultMap id="BaseResultMap" type="com.myApp.gamestore.entity.Developer">
+            <id property="name" column="name" jdbcType="VARCHAR"/>
+            <result property="totalReward" column="total_reward" jdbcType="FLOAT"/>
+            <result property="reward" column="reward" jdbcType="FLOAT"/>
+            <result property="repository" column="repository" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        name,total_reward,reward,
+        repository
+    </sql>
+</mapper>
