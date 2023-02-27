@@ -11,6 +11,8 @@ import GameUpLoad from "@/components/Developer/GameUpLoad.vue"
 import Repository from "@/components/Developer/Repository.vue"
 import DeveloperPay from "@/components/Pay/DeveloperPay.vue"
 import Search from "@/components/Store/Search.vue"
+import SearchList from "@/components/Game/SearchList.vue"
+import GameInfo from "@/components/Game/GameInfo.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,9 +34,20 @@ const router = createRouter({
               component:StoreMain,
             },
             {
-              path:'/store/search/:gameName',
+              path:'/store/search',
               name:'search',
               component:Search,
+            },
+            {
+              path:'/store/searchList',
+              name:'searchList',
+              component:SearchList,
+            },
+            {
+              path:'/store/:gameId',
+              name:'gameInfo',
+              component:GameInfo,
+              props:true
             }
           ]
         },

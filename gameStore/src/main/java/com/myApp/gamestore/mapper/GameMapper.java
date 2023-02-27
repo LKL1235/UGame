@@ -15,7 +15,11 @@ import java.util.List;
 @Mapper
 public interface GameMapper extends BaseMapper<Game> {
 
-    List<Game> gameShow(int num);
+    List<Game> gameShow(int offset,int num);
+
+    List<Game> searchByName(String gameName, Integer page);
+
+    Integer total(String gameName);
 }
 
 

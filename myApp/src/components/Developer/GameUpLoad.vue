@@ -34,14 +34,18 @@
       </n-button>
     </div>
 
-      <n-upload
-          action="https://www.mocky.io/v2/5e4bafc63100007100d8b70f"
-          v-model:file-list="fileList"
-          list-type="image-card"
-          @change="handleUploadChange"
-          @update:file-list="handleFileListChange"
-          style="position: relative;left: 48vw;top: 13vh;height: 220px"
-      />
+    <n-upload
+        ref="uploadRef"
+        action="http://127.0.0.1:9000/ImgUpload"
+        :default-upload="false"
+        :data="uploadData"
+        multiple
+        v-model:file-list="fileList"
+        list-type="image-card"
+        @change="handleUploadChange"
+        @update:file-list="handleFileListChange"
+        style="position: relative;left: 48vw;top: 13vh;height: 220px"
+    />
 
   </div>
 </template>
@@ -50,8 +54,15 @@
 import {ref} from "vue";
 import axios from "axios";
 import { useMessage } from 'naive-ui'
+import {useUserStore} from "@/stores/User";
+import {useRouter} from "vue-router";
 
+const router=useRouter()
+const userInfo=useUserStore()
 const message = useMessage()
+const uploadRef=ref()
+const uploadData=ref({name:""})
+
 const formRef=ref()
 const formValue=ref({
   name:'',
@@ -72,8 +83,16 @@ const rules={
     message:'请输入价格',
     trigger:["input","blur"]
   }],
-  introduce:[{}],
-  about:[{}],
+  introduce:[{
+    required:true,
+    message:'请输入游戏简介',
+    trigger:["input","blur"]
+  }],
+  about:[{
+    required:true,
+    message:'请输入关于这款游戏（玩法、内容）',
+    trigger:["input","blur"]
+  }],
 }
 
 const fileList=ref([])
@@ -83,17 +102,25 @@ const handleUploadChange=(data: { fileList })=> {
 }
 
 const handleFileListChange = () => {
-  if (fileList.value.length>4){
+  if (fileList.value.length>5){
     fileList.value.pop()
-    message.error('最多上传4张')
+    message.error('最多上传5张')
   }
 }
 
 const upload = () => {
-  formValue.value.name='hood1235'
-  axios.post("/game/upload",formValue.value).then((respon)=>{
-
-  }).catch(error=>console.log(error))
+  if(userInfo.$state.user.isLogin) {
+    formValue.value.name=userInfo.$state.user.name
+    axios.post("/upload",formValue.value).then((respon)=>{
+      if(respon.data.code===200){
+        uploadData.value.name=formValue.value.gameName
+        uploadRef.value?.submit()
+        router.push({name:"developer"})
+      }else{
+        message.error("发布失败")
+      }
+    }).catch(error=>console.log(error))
+  }
 }
 </script>
 

@@ -12,5 +12,9 @@ import java.util.List;
 */
 public interface GameService extends IService<Game> {
 
-    List<Game> gameShow(int num);
+    List<Game> gameShow(int offset,int num);
+
+    List<Game> searchByName(String gameName,Integer page);
+
+    Integer total(String gameName);
 }

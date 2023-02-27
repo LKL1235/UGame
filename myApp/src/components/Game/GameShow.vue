@@ -12,7 +12,7 @@
 <!--  信息栏  -->
     <div class="info">
       <div>
-        <a style="font-size: 28px;color: #FFFFFF;">{{props.game[gameIndex].gameName}}</a>
+        <a :style="{fontSize:props.game[gameIndex].gameName.length>21?'21px':'28px',color: '#FFFFFF'}">{{props.game[gameIndex].gameName}}</a>
       </div>
 <!--图片4连-->
       <div class="miniImgDiv">
@@ -39,7 +39,7 @@
       </div>
 <!--  价格  -->
       <div style="text-align: left">
-        <a style="color: #FFFFFF;margin-left: 5%">￥{{props.game[gameIndex].price}}</a>
+        <a style="color: #FFFFFF;margin-left: 5%">{{props.game[gameIndex].price==0.00?'免费开玩':'￥'+props.game[gameIndex].price}}</a>
       </div>
     </div>
     <!--  右箭头  -->
@@ -50,15 +50,23 @@
     </div>
 
 <!-- 下方index-->
-    <div >
-      <div
-          v-for="Index in props.game.length"
-          class="indexDiv" :style="{left:-400+Index*20+'px',backgroundColor:Index-1===gameIndex? '#FFFFFF':'#b8b6b4'}"
-          @click="change(Index-1)"
-      >
-      </div>
-    </div>
+<!--    <div >-->
+<!--      <div-->
+<!--          v-for="Index in props.game.length"-->
+<!--          class="indexDiv" :style="{left:-400+Index*20+'px',backgroundColor:Index-1===gameIndex? '#FFFFFF':'#b8b6b4'}"-->
+<!--          @click="change(Index-1)"-->
+<!--      >-->
+<!--      </div>-->
+<!--    </div>-->
 
+  </div>
+  <div style="position: relative;left: 44vw;top: -1vh;width: 20vw">
+    <div class="indexDiv"
+         v-for="Index in props.game.length"
+         :style="{backgroundColor:Index-1===gameIndex? '#FFFFFF':'#b8b6b4'}"
+         @click="change(Index-1)"
+    >
+    </div>
   </div>
 </template>
 
@@ -164,12 +172,20 @@ onMounted(()=>{
 .rightAngle:hover{
   background-image: linear-gradient(to left, #486075 , #131B26);
 }
+/*.indexDiv{*/
+/*  height: 15px;*/
+/*  width: 18px;*/
+/*  position: relative;*/
+/*  top: 120px;*/
+/*  float: left;*/
+/*  border-radius: 5px;*/
+/*}*/
 .indexDiv{
   height: 15px;
   width: 18px;
-  position: relative;
-  top: 120px;
-  float: left;
   border-radius: 5px;
+  color: #FFFFFF;
+  float: left;
+  margin-left: 20px;
 }
 </style>

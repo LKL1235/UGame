@@ -78,7 +78,7 @@ const avatar=computed(()=>{
 //搜索内容
 const search=ref<String>("")
 const gotoSearch = () => {
-  router.push({name:'search',params:{gameName:search.value}})
+  router.push({name:'search',query:{gameName:search.value}})
 }
 </script>
 
@@ -86,7 +86,7 @@ const gotoSearch = () => {
 
 /*主体颜色*/
 .storeMain{
-  height: 6580px;
+  height: 100vh;
 }
 /*指针样式*/
 .pointerStyle{

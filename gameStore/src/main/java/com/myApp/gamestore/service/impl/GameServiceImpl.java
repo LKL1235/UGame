@@ -20,9 +20,20 @@ public class GameServiceImpl extends ServiceImpl<GameMapper, Game>
     @Autowired
     private GameMapper gameMapper;
     @Override
-    public List<Game> gameShow(int num) {
-        return gameMapper.gameShow(num);
+    public List<Game> gameShow(int offset,int num) {
+        return gameMapper.gameShow(offset,num);
     }
+
+    @Override
+    public List<Game> searchByName(String gameName, Integer page) {
+        return gameMapper.searchByName("%"+gameName+"%",(page-1)*20);
+    }
+
+    @Override
+    public Integer total(String gameName) {
+        return gameMapper.total("%"+gameName+"%");
+    }
+
 }
 
 

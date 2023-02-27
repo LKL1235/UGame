@@ -26,6 +26,16 @@
     </sql>
 
     <select id="gameShow" resultType="com.myApp.gamestore.entity.Game">
-        SELECT * FROM game ORDER BY sales desc limit 5;
+        SELECT * FROM game ORDER BY sales desc limit #{offset},#{num};
+    </select>
+
+
+    <!-- page是起始位置 20是数量 -->
+    <select id="searchByName" resultType="com.myApp.gamestore.entity.Game">
+        SELECT * FROM game WHERE game_name LIKE #{gameName} ORDER BY sales desc limit #{page},20;
+    </select>
+
+    <select id="total" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM game WHERE game_name LIKE #{gameName}
     </select>
 </mapper>
