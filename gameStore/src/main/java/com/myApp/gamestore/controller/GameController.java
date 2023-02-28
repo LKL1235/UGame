@@ -35,7 +35,8 @@ public class GameController {
     @Autowired
     private GameService gameService;
 
-    private static final String BASE_FILE_PATH ="G:\\img\\";
+//    private static final String BASE_FILE_PATH ="G:\\img\\";
+    private static final String BASE_FILE_PATH ="E:\\img\\";
     private static final String BASE_URL_PATH ="http://127.0.0.1:8889/";
     // @RequestMapping("/show")
     // public myResult show(){

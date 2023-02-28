@@ -117,8 +117,8 @@ const gotoSearch = () => {
   height: 35px;
   position: relative;
   top: 20px;
-  left: 475px;
-  width: 940px;
+  left: 24vw;
+  width: 100vh;
   color: #e5e5e5;
 }
 .searchBoxItem{

@@ -1,6 +1,25 @@
 <template>
   <div>
-    <img alt="sss" :src="game.imgs[0]" style="width: 50vw;height: 30vh">
+    <img alt="sss" :src="pic" style="width: 30vw;height: 30vh;float: left">
+    <div>
+      <a>{{game?.gameName}}</a>
+      <a>{{game?.introduce}}</a>
+      <a>{{game?.tags}}</a>
+    </div>
+  </div>
+
+  <div style="float: none;">
+    <div>
+      <a>
+        {{game?.price}}
+      </a>
+    </div>
+
+    <div>
+      <a>
+        {{game?.about}}
+      </a>
+    </div>
   </div>
 </template>
 
@@ -12,11 +31,12 @@ import axios from "axios";
 
 const route=useRoute()
 const game=ref()
+const pic=ref()
 
 onMounted(()=>{
   axios.get("/game/info/"+route.params.gameId).then((respon)=>{
     game.value=respon.data.data
-    console.log(respon.data.data)
+    pic.value=game.value.imgs[0]
   }).catch(error=>{console.log(error)})
 })
 </script>
