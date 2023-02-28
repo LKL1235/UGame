@@ -13,6 +13,7 @@ import com.myApp.gamestore.utils.myResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,8 +37,11 @@ public class GameController {
     private GameService gameService;
 
 //    private static final String BASE_FILE_PATH ="G:\\img\\";
-    private static final String BASE_FILE_PATH ="E:\\img\\";
-    private static final String BASE_URL_PATH ="http://127.0.0.1:8889/";
+
+    @Value("${path.BASE_FILE_PATH}")
+    private  String BASE_FILE_PATH ;
+    @Value("${path.BASE_URL_PATH}")
+    private   String BASE_URL_PATH ;
     // @RequestMapping("/show")
     // public myResult show(){
     //     List<Game> list=gameService.gameShow(5);
@@ -75,10 +79,10 @@ public class GameController {
             gameShowDTO.setGameName(item.getGameName());
             ArrayList<String> strings = new ArrayList<>();
             String path = BASE_FILE_PATH+item.getImages();
-            LOG.info("path={}",path);
+            // LOG.info("path={}",path);
             File file = new File(path);
             File[] fs = file.listFiles();
-            LOG.info("fs={}", (Object) fs);
+            // LOG.info("fs={}", (Object) fs);
             if(fs!=null){
                 for(File f:fs){
                     if(!f.isDirectory()) {

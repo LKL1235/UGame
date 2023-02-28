@@ -64,7 +64,7 @@
 
   <div style="position: relative;left: -30%;top: 20px">
     <div class="indexDiv"
-         v-for="Index in props.game.length/3"
+         v-for="Index in Math.floor(props.game.length/3)"
          :style="{backgroundColor:Index-1===gameIndex? '#FFFFFF':'#b8b6b4'}"
          @click="change(Index-1)"
     >
@@ -81,7 +81,7 @@ var timer
 const props = defineProps<{
   game:object[]
 }>()
-const maxIndex=props.game.length/3
+const maxIndex=Math.floor(props.game.length/3)
 const gameIndex=ref(0)
 const previousIndex = () => {
   if(gameIndex.value==0){
