@@ -13,6 +13,7 @@
       <a>
         {{game?.price}}
       </a>
+      <button >立即购买</button>
     </div>
 
     <div>

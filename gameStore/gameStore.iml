@@ -9,7 +9,9 @@
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
-        <datasource-mapping />
+        <datasource-mapping>
+          <factory-entry name="gameStore" value="bd211d9b-66a0-475e-b313-d0647e1041e7" />
+        </datasource-mapping>
         <naming-strategy-map />
       </configuration>
     </facet>
