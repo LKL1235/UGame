@@ -39,7 +39,7 @@ public class AliPayController {
     private OrdersMapper ordersMapper;
 
     @PostMapping("/developerPay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
-    public String pay(@RequestBody AliPayDTO aliPayDTO) throws Exception {
+    public String developerPay(@RequestBody AliPayDTO aliPayDTO) throws Exception {
         aliPayDTO.setTradeNo(System.currentTimeMillis()+"0");
         aliPayDTO.setSubject(aliPayDTO.getUserName()+"developerPay");
         aliPayDTO.setTotalAmount(100.00);
@@ -70,6 +70,39 @@ public class AliPayController {
         // httpResponse.getWriter().write(form);// 直接将完整的表单html输出到页面
         // httpResponse.getWriter().flush();
         // httpResponse.getWriter().close();
+        return form;
+    }
+
+    @PostMapping("/gamePay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
+    public String gamePay(@RequestBody AliPayDTO aliPayDTO) throws Exception {
+        aliPayDTO.setTradeNo(System.currentTimeMillis()+"0");
+        aliPayDTO.setSubject(aliPayDTO.getUserName());
+        System.out.println(aliPayDTO);
+        // aliPayDTO.setTotalAmount(100.00);
+        // 1. 创建Client，通用SDK提供的Client，负责调用支付宝的API
+        AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, aliPayConfig.getAppId(),
+                aliPayConfig.getAppPrivateKey(), FORMAT, CHARSET, aliPayConfig.getAlipayPublicKey(), SIGN_TYPE);
+        // 2. 创建 Request并设置Request参数
+        AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();  // 发送请求的 Request类
+        request.setNotifyUrl(aliPayConfig.getNotifyUrl());
+        request.setReturnUrl(aliPayConfig.getReturnUrl());
+        JSONObject bizContent = new JSONObject();
+        bizContent.set("out_trade_no", aliPayDTO.getTradeNo());  // 我们自己生成的订单编号
+        bizContent.set("total_amount", aliPayDTO.getTotalAmount()); // 订单的总金额
+        bizContent.set("subject", aliPayDTO.getSubject());   // 支付的名称
+        bizContent.set("product_code", "FAST_INSTANT_TRADE_PAY");  // 固定配置
+        bizContent.set("timeout_express","15m");
+        request.setBizContent(bizContent.toString());
+
+        ordersMapper.insert(new Orders(null,aliPayDTO.getGame_id(),aliPayDTO.getSubject(),aliPayDTO.getTradeNo(),null,aliPayDTO.getCreateTime(),null,"未支付", aliPayDTO.getTotalAmount()));
+        // 执行请求，拿到响应的结果，返回给浏览器
+        String form = "";
+        try {
+            form = alipayClient.pageExecute(request).getBody(); // 调用SDK生成表单
+        } catch (AlipayApiException e) {
+            e.printStackTrace();
+        }
+
         return form;
     }
 

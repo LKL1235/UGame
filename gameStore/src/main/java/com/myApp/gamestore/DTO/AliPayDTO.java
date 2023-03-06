@@ -12,6 +12,9 @@ import java.util.Date;
  **/
 @Data
 public class AliPayDTO extends AliPay {
+    // private String tradeNo;
+    // private double totalAmount;
+    // private String subject;
     private Integer game_id;
     private String userName;
     private Date createTime;
