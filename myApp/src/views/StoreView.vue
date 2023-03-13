@@ -24,19 +24,19 @@
         </div>
 <!--  商店选单-->
         <div class="searchBoxItem pointerStyle">
-          <n-dropdown class="" trigger="hover" :options="options" @select="handleSelect">
+          <n-dropdown class="" trigger="hover" :options="()=>{}" @select="()=>{}">
             <a style="position: relative;">您的商店</a>
           </n-dropdown>
         </div>
 <!--新鲜推荐-->
         <div class="searchBoxItem pointerStyle">
-          <n-dropdown class="" trigger="hover" :options="options" @select="handleSelect">
+          <n-dropdown class="" trigger="hover" :options="()=>{}" @select="()=>{}">
             <a style="position: relative;top: 1px">新鲜推荐</a>
           </n-dropdown>
         </div>
 <!--类别-->
         <div class="searchBoxItem pointerStyle">
-          <n-dropdown class="" trigger="hover" :options="options" @select="handleSelect">
+          <n-dropdown class="" trigger="hover" :options="()=>{}" @select="()=>{}">
             <a style="position: relative;top: 1px">类别</a>
           </n-dropdown>
         </div>
