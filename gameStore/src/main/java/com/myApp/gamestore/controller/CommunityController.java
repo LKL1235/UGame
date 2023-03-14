@@ -1,6 +1,7 @@
 package com.myApp.gamestore.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.myApp.gamestore.DTO.PostsListDTO;
 import com.myApp.gamestore.entity.Post;
 import com.myApp.gamestore.service.PostService;
 import com.myApp.gamestore.utils.ResultCode;
@@ -28,9 +29,10 @@ public class CommunityController {
     @RequestMapping("/getPosts")
     public myResult getPosts(@RequestParam(required = false) Integer boardId){
         if (boardId != null){
-            QueryWrapper<Post> queryWrapper = new QueryWrapper<Post>();
-            queryWrapper.eq("board_id",boardId);
-            List<Post> list = postService.list(queryWrapper);
+            // QueryWrapper<Post> queryWrapper = new QueryWrapper<Post>();
+            // queryWrapper.eq("board_id",boardId);
+            List<PostsListDTO> list= postService.getPostsList(boardId);
+            // List<Post> list = postService.list(queryWrapper);
             return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
         }
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),postService.list());

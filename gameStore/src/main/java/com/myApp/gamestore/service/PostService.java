@@ -1,7 +1,10 @@
 package com.myApp.gamestore.service;
 
+import com.myApp.gamestore.DTO.PostsListDTO;
 import com.myApp.gamestore.entity.Post;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
 * @author 25445
@@ -10,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface PostService extends IService<Post> {
 
+    List<PostsListDTO> getPostsList(Integer boardId);
 }

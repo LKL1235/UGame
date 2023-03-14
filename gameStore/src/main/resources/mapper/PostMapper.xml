@@ -17,4 +17,12 @@
         post_id,post_title,user_name,
         board_id,created_time,last_reply_time
     </sql>
+
+    <select id="getPostsList" resultType="com.myApp.gamestore.DTO.PostsListDTO">
+        SELECT post_id,post_title,user_name,post.board_id,created_time,last_reply_time,board_name,description
+        FROM `post`
+        LEFT JOIN  board
+        on (post.board_id=board.board_id)
+        where post.board_id = #{boardId}
+    </select>
 </mapper>
