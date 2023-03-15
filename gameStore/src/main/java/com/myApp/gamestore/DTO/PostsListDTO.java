@@ -14,6 +14,7 @@ import java.util.Date;
 public class PostsListDTO {
     private Integer postId;
     private String postTitle;
+    private String contents;
     private String userName;
     private Integer boardId;
     private Date createdTime;

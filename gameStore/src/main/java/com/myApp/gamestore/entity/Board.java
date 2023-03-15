@@ -15,8 +15,13 @@ public class Board implements Serializable {
     /**
      * 
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer boardId;
+
+    /**
+     * 
+     */
+    private Integer gameId;
 
     /**
      * 
@@ -43,6 +48,20 @@ public class Board implements Serializable {
      */
     public void setBoardId(Integer boardId) {
         this.boardId = boardId;
+    }
+
+    /**
+     * 
+     */
+    public Integer getGameId() {
+        return gameId;
+    }
+
+    /**
+     * 
+     */
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
     }
 
     /**
@@ -86,6 +105,7 @@ public class Board implements Serializable {
         }
         Board other = (Board) that;
         return (this.getBoardId() == null ? other.getBoardId() == null : this.getBoardId().equals(other.getBoardId()))
+            && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
             && (this.getBoardName() == null ? other.getBoardName() == null : this.getBoardName().equals(other.getBoardName()))
             && (this.getDescription() == null ? other.getDescription() == null : this.getDescription().equals(other.getDescription()));
     }
@@ -95,6 +115,7 @@ public class Board implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getBoardId() == null) ? 0 : getBoardId().hashCode());
+        result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
         result = prime * result + ((getBoardName() == null) ? 0 : getBoardName().hashCode());
         result = prime * result + ((getDescription() == null) ? 0 : getDescription().hashCode());
         return result;
@@ -107,6 +128,7 @@ public class Board implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", boardId=").append(boardId);
+        sb.append(", gameId=").append(gameId);
         sb.append(", boardName=").append(boardName);
         sb.append(", description=").append(description);
         sb.append(", serialVersionUID=").append(serialVersionUID);

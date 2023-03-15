@@ -16,7 +16,7 @@ public class Reply implements Serializable {
     /**
      * 
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer replyId;
 
     /**

@@ -16,13 +16,18 @@ public class Post implements Serializable {
     /**
      * 
      */
-    @TableId
+    @TableId(type = IdType.AUTO)
     private Integer postId;
 
     /**
      * 
      */
     private String postTitle;
+
+    /**
+     * 
+     */
+    private String contents;
 
     /**
      * 
@@ -73,6 +78,20 @@ public class Post implements Serializable {
      */
     public void setPostTitle(String postTitle) {
         this.postTitle = postTitle;
+    }
+
+    /**
+     * 
+     */
+    public String getContents() {
+        return contents;
+    }
+
+    /**
+     * 
+     */
+    public void setContents(String contents) {
+        this.contents = contents;
     }
 
     /**
@@ -145,6 +164,7 @@ public class Post implements Serializable {
         Post other = (Post) that;
         return (this.getPostId() == null ? other.getPostId() == null : this.getPostId().equals(other.getPostId()))
             && (this.getPostTitle() == null ? other.getPostTitle() == null : this.getPostTitle().equals(other.getPostTitle()))
+            && (this.getContents() == null ? other.getContents() == null : this.getContents().equals(other.getContents()))
             && (this.getUserName() == null ? other.getUserName() == null : this.getUserName().equals(other.getUserName()))
             && (this.getBoardId() == null ? other.getBoardId() == null : this.getBoardId().equals(other.getBoardId()))
             && (this.getCreatedTime() == null ? other.getCreatedTime() == null : this.getCreatedTime().equals(other.getCreatedTime()))
@@ -157,6 +177,7 @@ public class Post implements Serializable {
         int result = 1;
         result = prime * result + ((getPostId() == null) ? 0 : getPostId().hashCode());
         result = prime * result + ((getPostTitle() == null) ? 0 : getPostTitle().hashCode());
+        result = prime * result + ((getContents() == null) ? 0 : getContents().hashCode());
         result = prime * result + ((getUserName() == null) ? 0 : getUserName().hashCode());
         result = prime * result + ((getBoardId() == null) ? 0 : getBoardId().hashCode());
         result = prime * result + ((getCreatedTime() == null) ? 0 : getCreatedTime().hashCode());
@@ -172,6 +193,7 @@ public class Post implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", postId=").append(postId);
         sb.append(", postTitle=").append(postTitle);
+        sb.append(", contents=").append(contents);
         sb.append(", userName=").append(userName);
         sb.append(", boardId=").append(boardId);
         sb.append(", createdTime=").append(createdTime);

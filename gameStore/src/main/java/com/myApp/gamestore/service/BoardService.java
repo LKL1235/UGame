@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 /**
 * @author 25445
 * @description 针对表【board】的数据库操作Service
-* @createDate 2023-03-13 23:11:29
+* @createDate 2023-03-15 23:01:59
 */
 public interface BoardService extends IService<Board> {
 

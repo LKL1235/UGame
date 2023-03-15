@@ -10,13 +10,15 @@ import java.util.List;
 /**
 * @author 25445
 * @description 针对表【post】的数据库操作Mapper
-* @createDate 2023-03-13 23:11:29
+* @createDate 2023-03-15 22:54:49
 * @Entity com.myApp.gamestore.entity.Post
 */
 @Mapper
 public interface PostMapper extends BaseMapper<Post> {
 
-    List<PostsListDTO> getPostsList(Integer boardId);
+    List<PostsListDTO> getPostsListBoardPage(Integer boardId, Integer page);
+
+    List<PostsListDTO> getPostsListPage(Integer page);
 }
 
 

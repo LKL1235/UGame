@@ -27,15 +27,16 @@ public class CommunityController {
 
     // /getPosts?boardId=
     @RequestMapping("/getPosts")
-    public myResult getPosts(@RequestParam(required = false) Integer boardId){
-        if (boardId != null){
+    public myResult getPosts(@RequestParam(required = false) Integer boardId, @RequestParam(required = false, defaultValue = "1") Integer page) {
+        if (boardId != null) {
             // QueryWrapper<Post> queryWrapper = new QueryWrapper<Post>();
             // queryWrapper.eq("board_id",boardId);
-            List<PostsListDTO> list= postService.getPostsList(boardId);
+            List<PostsListDTO> list = postService.getPostsListBoardPage(boardId, page);
             // List<Post> list = postService.list(queryWrapper);
-            return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
+            return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), list);
         }
-        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),postService.list());
+        List<PostsListDTO> list = postService.getPostsListPage(page);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), list);
     }
 
 }

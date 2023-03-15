@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
 * @author 25445
 * @description 针对表【board】的数据库操作Service实现
-* @createDate 2023-03-13 23:11:29
+* @createDate 2023-03-15 23:01:59
 */
 @Service
 public class BoardServiceImpl extends ServiceImpl<BoardMapper, Board>
