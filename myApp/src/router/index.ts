@@ -13,6 +13,8 @@ import DeveloperPay from "@/components/Pay/DeveloperPay.vue"
 import Search from "@/components/Store/Search.vue"
 import SearchList from "@/components/Game/SearchList.vue"
 import GameInfo from "@/components/Game/GameInfo.vue"
+import PostList from "@/components/Community/PostList.vue"
+import PostListByBoard from "@/components/Community/PostListByBoard.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +70,18 @@ const router = createRouter({
           path:'/community',
           name:'community',
           component:Community,
+          children:[
+            {
+              path:'postList',
+              name:'postList',
+              component: PostList,
+            },
+            {
+              path:'postListByBoard',
+              name:'postListByBoard',
+              component: PostListByBoard,
+            },
+          ]
         },
         //  聊天
         {

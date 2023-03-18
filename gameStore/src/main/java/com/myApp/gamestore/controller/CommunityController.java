@@ -2,7 +2,9 @@ package com.myApp.gamestore.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.myApp.gamestore.DTO.PostsListDTO;
+import com.myApp.gamestore.entity.Board;
 import com.myApp.gamestore.entity.Post;
+import com.myApp.gamestore.service.BoardService;
 import com.myApp.gamestore.service.PostService;
 import com.myApp.gamestore.utils.ResultCode;
 import com.myApp.gamestore.utils.myResult;
@@ -23,7 +25,8 @@ public class CommunityController {
 
     @Autowired
     private PostService postService;
-
+    @Autowired
+    private BoardService boardService;
 
     // /getPosts?boardId=
     @RequestMapping("/getPosts")
@@ -39,4 +42,9 @@ public class CommunityController {
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), list);
     }
 
+    @RequestMapping("/getBoards")
+    public myResult getBoards(@RequestParam(required = false, defaultValue = "1") Integer page){
+        List<Board> list = boardService.listPage(page);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
+    }
 }

@@ -15,4 +15,9 @@
         board_id,game_id,board_name,
         description
     </sql>
+    <select id="listPage" resultType="com.myApp.gamestore.entity.Board">
+        SELECT *
+        FROM `board`
+        limit #{page},10
+    </select>
 </mapper>

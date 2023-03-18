@@ -29,7 +29,7 @@
 
     <!--  社区  -->
     <n-dropdown class="" trigger="hover" :options="communityOptions" @select="handleSelect">
-      <a class="fontColor pointerStyle" style="  position:absolute;left:710px;top:47px;" @click="router.push({name:'community'})">社区</a>
+      <a class="fontColor pointerStyle" style="  position:absolute;left:710px;top:47px;" @click="router.push({name:'postList'})">社区</a>
     </n-dropdown>
 
     <!--  个人中心  -->
@@ -131,7 +131,7 @@ const storeOptions=[
 const communityOptions=[
   {
     label:"主页",
-    key:"community"
+    key:"postList"
   },
 ]
 //用户选单
