@@ -15,6 +15,9 @@ import SearchList from "@/components/Game/SearchList.vue"
 import GameInfo from "@/components/Game/GameInfo.vue"
 import PostList from "@/components/Community/PostList.vue"
 import PostListByBoard from "@/components/Community/PostListByBoard.vue"
+import AddBoard from "@/components/Community/AddBoard.vue";
+import AddPost from "@/components/Community/AddPost.vue";
+import PostInfo from "@/components/Community/PostInfo.vue";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -81,6 +84,26 @@ const router = createRouter({
               name:'postListByBoard',
               component: PostListByBoard,
             },
+            {
+              path:'boardList',
+              name:'boardList',
+              component: () => import('@/components/Community/BoardList.vue')
+            },
+            {
+              path:'addBoard',
+              name:'addBoard',
+              component:AddBoard
+            },
+            {
+              path:'addPost',
+              name:'addPost',
+              component:AddPost
+            },
+            {
+              path:'postInfo',
+              name:'postInfo',
+              component: PostInfo
+            }
           ]
         },
         //  聊天
