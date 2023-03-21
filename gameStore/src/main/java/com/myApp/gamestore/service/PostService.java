@@ -16,4 +16,8 @@ public interface PostService extends IService<Post> {
     List<PostsListDTO> getPostsListBoardPage(Integer boardId, Integer page);
 
     List<PostsListDTO> getPostsListPage(Integer page);
+
+    List<PostsListDTO> getPostsListLikePage(String name, Integer page);
+
+    PostsListDTO getPostInfo(Integer postId);
 }

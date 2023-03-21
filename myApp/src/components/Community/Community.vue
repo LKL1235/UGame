@@ -10,7 +10,7 @@
     <div class="leftDiv">
       <a style="color: #b8b6b4;margin: 10px 10px 10px 10px">热门的板块</a>
       <div class="leftDivGrid">
-        <div v-for="index in 8" @click="()=>{router.push({name:'postListByBoard',query:{boardId:boardList[index-1].boardId,boardName:boardList[index-1].boardName}})}" class="boardTop">
+        <div v-for="index in 8" @click="()=>{router.push({name:'postList',query:{boardId:boardList[index-1].boardId,boardName:boardList[index-1].boardName}})}" class="boardTop">
           {{boardList?boardList[index-1]?.boardName:" "}}
         </div>
       </div>
@@ -21,7 +21,7 @@
       <div style="">
         <n-input v-model:value="boardSearch" type="text" placeholder="板块名称" style="width: 10vw;margin-left: 2vw;margin-top: 25px"  />
         <!-- 搜索按钮-->
-        <div style="background-color: #64B6E5;width: 28px;height: 28px;border-radius: 2px;float: right;position: relative;left: -2.5vw;top:27px;" class="boardSearchBox" @click="gotoBoardSearch">
+        <div style="background-color: #64B6E5;width: 28px;height: 28px;border-radius: 2px;float: right;position: relative;left: -2.5vw;top:27px;" class="boardSearchBox" @click="gotoBoardList(boardSearch)">
           <n-icon size="26" color="#2E4D6A">
             <Search />
           </n-icon>
@@ -35,7 +35,7 @@
         <br>
         <n-input v-model:value="postSearch" type="text" placeholder="帖子名称" style="width: 10vw;margin-left: 2vw;margin-top: 25px"  />
         <!-- 搜索按钮-->
-        <div style="background-color: #64B6E5;width: 28px;height: 28px;border-radius: 2px;float: right;position: relative;left: -2.5vw;top:27px;" class="boardSearchBox" @click="gotoPostSearch">
+        <div style="background-color: #64B6E5;width: 28px;height: 28px;border-radius: 2px;float: right;position: relative;left: -2.5vw;top:27px;" class="boardSearchBox" @click="gotoPostList(postSearch)">
           <n-icon size="26" color="#2E4D6A">
             <Search />
           </n-icon>
@@ -69,10 +69,15 @@ import {useRouter} from "vue-router";
 
 const router = useRouter()
 const boardList = ref()
-const postList = ref()
-const postNum = ref()
 const boardSearch = ref("")
 const postSearch = ref("")
+
+const gotoBoardList = (boardName:string) => {
+  router.push({path:'boardList',query:{boardName:boardName}})
+}
+const gotoPostList = (postName:string) => {
+  router.push({path:'postList',query:{postName:postName}})
+}
 
 onMounted(()=>{
   axios.get("/getBoards").then((respon)=>{

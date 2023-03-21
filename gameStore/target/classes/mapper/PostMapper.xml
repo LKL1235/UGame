@@ -25,6 +25,7 @@
                  LEFT JOIN  board
                             on (post.board_id=board.board_id)
         where post.board_id = #{boardId}
+        ORDER BY last_reply_time desc
         limit #{page},10
     </select>
 
@@ -33,6 +34,25 @@
         FROM `post`
                  LEFT JOIN  board
                             on (post.board_id=board.board_id)
+        ORDER BY last_reply_time desc
             limit #{page},10
+    </select>
+
+    <select id="getPostsListLikePage" resultType="com.myApp.gamestore.DTO.PostsListDTO">
+        SELECT post_id,post_title,contents,user_name,post.board_id,created_time,last_reply_time,board_name,description
+        FROM `post`
+                 LEFT JOIN  board
+                            on (post.board_id=board.board_id)
+                            where (post.post_title like #{name})
+        ORDER BY last_reply_time desc
+            limit #{page},10
+    </select>
+
+    <select id="getPostInfo" resultType="com.myApp.gamestore.DTO.PostsListDTO">
+        SELECT post_id,post_title,contents,user_name,post.board_id,created_time,last_reply_time,board_name
+        FROM `post`
+        LEFT JOIN  board
+        on (post.board_id=board.board_id)
+        WHERE (post_id = #{postId})
     </select>
 </mapper>

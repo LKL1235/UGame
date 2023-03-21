@@ -4,13 +4,11 @@
     <div class="boards" v-for="(board,index) in boardNum">
       <div class="board">
         <a style="color: #FFFFFF;font-size: 28px">
-          {{boards[index]?.postTitle.length>15?boards[index]?.postTitle.substring(0,15)+"...":boards[index]?.postTitle}}
+          {{boards[index]?.boardName.length>15?boards[index]?.boardName.substring(0,15)+"...":boards[index]?.boardName}}
         </a>
-        <div>
-          <a style="color: #FFFFFF;font-size: 11px;">{{"来自："+boards[index]?.boardName}}</a>
-        </div>
+        <br>
         <a style="color: #FFFFFF;font-size: 18px;float: none">
-          {{boards[index]?.contents.length>40?boards[index]?.contents.substring(0,40)+"...":boards[index]?.contents}}
+          {{boards[index]?.description.length>40?boards[index]?.description.substring(0,40)+"...":boards[index]?.description}}
         </a>
 
       </div>
@@ -22,13 +20,15 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
 import axios from "axios";
+import {useRoute} from "vue-router";
 
+const route = useRoute()
 const boards = ref()
 const boardNum = ref()
 
 
 onMounted(()=>{
-  axios.get(("/getBoard")).then((response=>{
+  axios.get(("/getBoardsLike"),{params:{name:route.query.boardName}}).then((response=>{
     boards.value = response.data.data
     boardNum.value = boards.value.length
   })).catch(error=>console.log(error))

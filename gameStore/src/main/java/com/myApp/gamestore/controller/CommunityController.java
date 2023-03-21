@@ -1,6 +1,7 @@
 package com.myApp.gamestore.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.myApp.gamestore.DTO.PostDTO;
 import com.myApp.gamestore.DTO.PostsListDTO;
 import com.myApp.gamestore.entity.Board;
 import com.myApp.gamestore.entity.Post;
@@ -30,21 +31,40 @@ public class CommunityController {
 
     // /getPosts?boardId=
     @RequestMapping("/getPosts")
-    public myResult getPosts(@RequestParam(required = false) Integer boardId, @RequestParam(required = false, defaultValue = "1") Integer page) {
+    public myResult getPosts(@RequestParam(required = false,defaultValue = "") String name,@RequestParam(required = false) Integer boardId, @RequestParam(required = false, defaultValue = "1") Integer page) {
         if (boardId != null) {
-            // QueryWrapper<Post> queryWrapper = new QueryWrapper<Post>();
-            // queryWrapper.eq("board_id",boardId);
             List<PostsListDTO> list = postService.getPostsListBoardPage(boardId, page);
-            // List<Post> list = postService.list(queryWrapper);
             return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), list);
         }
-        List<PostsListDTO> list = postService.getPostsListPage(page);
+        List<PostsListDTO> list = postService.getPostsListLikePage(name, page);
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), list);
+    }
+
+    @RequestMapping("/getPostsLike")
+    public myResult getPostsLike(@RequestParam(required = false,defaultValue = "") String name, @RequestParam(required = false, defaultValue = "1") Integer page) {
+
+            List<PostsListDTO> list = postService.getPostsListLikePage(name, page);
+
+            return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(), list);
+    }
+
+    @RequestMapping("getPostInfo")
+    public myResult getPostInfo(@RequestParam(required = true)Integer postId){
+        PostsListDTO postInfo = postService.getPostInfo(postId);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),postInfo);
     }
 
     @RequestMapping("/getBoards")
     public myResult getBoards(@RequestParam(required = false, defaultValue = "1") Integer page){
         List<Board> list = boardService.listPage(page);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
+    }
+    @RequestMapping("/getBoardsLike")
+    public myResult getBoardsLike(@RequestParam(required = false, defaultValue = "") String name,@RequestParam(required = false, defaultValue = "1") Integer page){
+        QueryWrapper<Board> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("board_name",name);
+        // queryWrapper.last();
+        List<Board> list = boardService.list(queryWrapper);
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
     }
 }

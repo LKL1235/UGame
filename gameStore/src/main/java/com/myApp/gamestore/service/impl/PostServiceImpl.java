@@ -30,6 +30,16 @@ public class PostServiceImpl extends ServiceImpl<PostMapper, Post>
     public List<PostsListDTO> getPostsListPage(Integer page) {
         return postMapper.getPostsListPage((page-1)*10);
     }
+
+    @Override
+    public List<PostsListDTO> getPostsListLikePage(String name, Integer page) {
+        return postMapper.getPostsListLikePage("%"+name+"%",(page-1)*10);
+    }
+
+    @Override
+    public PostsListDTO getPostInfo(Integer postId) {
+        return postMapper.getPostInfo(postId);
+    }
 }
 
 

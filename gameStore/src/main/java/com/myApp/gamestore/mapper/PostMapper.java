@@ -19,6 +19,10 @@ public interface PostMapper extends BaseMapper<Post> {
     List<PostsListDTO> getPostsListBoardPage(Integer boardId, Integer page);
 
     List<PostsListDTO> getPostsListPage(Integer page);
+
+    List<PostsListDTO> getPostsListLikePage(String name, int page);
+
+    PostsListDTO getPostInfo(Integer postId);
 }
 
 
