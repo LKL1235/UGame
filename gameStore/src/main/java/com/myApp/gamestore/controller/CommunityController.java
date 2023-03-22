@@ -12,6 +12,7 @@ import com.myApp.gamestore.service.ReplyService;
 import com.myApp.gamestore.utils.ResultCode;
 import com.myApp.gamestore.utils.myResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -32,6 +33,13 @@ public class CommunityController {
     private BoardService boardService;
     @Autowired
     private ReplyService replyService;
+
+
+    @RequestMapping("/addPost")
+    public myResult addPost(@RequestBody Post post) {
+
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+    }
 
     // /getPosts?boardId=
     @RequestMapping("/getPosts")
@@ -58,6 +66,11 @@ public class CommunityController {
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),postInfo);
     }
 
+    @RequestMapping("/addBoard")
+    public myResult addBoard(@RequestBody Board board) {
+
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+    }
     @RequestMapping("/getBoards")
     public myResult getBoards(@RequestParam(required = false, defaultValue = "1") Integer page){
         List<Board> list = boardService.listPage(page);
@@ -80,4 +93,5 @@ public class CommunityController {
         List<Reply> list = replyService.list(queryWrapper);
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
     }
+
 }
