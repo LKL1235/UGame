@@ -14,11 +14,10 @@ import Search from "@/components/Store/Search.vue"
 import SearchList from "@/components/Game/SearchList.vue"
 import GameInfo from "@/components/Game/GameInfo.vue"
 import PostList from "@/components/Community/PostList.vue"
-import PostListByBoard from "@/components/Community/PostListByBoard.vue"
 import AddBoard from "@/components/Community/AddBoard.vue";
 import AddPost from "@/components/Community/AddPost.vue";
 import PostInfo from "@/components/Community/PostInfo.vue";
-import PostListLke from "@/components/Community/PostListLike.vue"
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -79,16 +78,6 @@ const router = createRouter({
               path:'postList',
               name:'postList',
               component: PostList,
-            },
-            {
-              path:'postListByBoard',
-              name:'postListByBoard',
-              component: PostListByBoard,
-            },
-            {
-              path:'postListLike',
-              name:'postListLike',
-              component: PostListLke,
             },
             {
               path:'boardList',

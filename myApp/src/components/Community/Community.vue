@@ -5,6 +5,7 @@
       <a style="color: #FFFFFF;font-size: 26px">社区中心</a>
       <br>
       <a style="color: #9099A1;font-size: 16px">UGame 上所有游戏与软件的社区和官方内容。 </a>
+
     </div>
 
     <div class="leftDiv">

@@ -1,4 +1,7 @@
 <template>
+  <a v-if="route.query.boardName" style="position: relative;left: 25vw;color: #FFFFFF;font-size: 24px">{{"板块主题： "+route.query.boardName}}</a>
+  <el-button @click="router.push({name:'addPost',query:{boardId:route.query.boardId,boardName:route.query.boardName}})" v-if="route.query.boardId && route.query.boardName" type="primary" style="position: absolute;left: 68%;margin-top: 10px">发表帖子</el-button>
+  <br>
   <div class="main">
     <div class="posts" v-for="(post,index) in postNum">
       <div class="post" >
@@ -19,6 +22,7 @@
     </div>
 
   </div>
+  <br>
 </template>
 
 <script setup lang="ts">
@@ -49,7 +53,7 @@ onMounted(()=>{
 
 <style scoped>
 .main{
-
+  margin-top: 30px;
 }
 .posts{
   margin-left: 25%;
@@ -59,7 +63,12 @@ onMounted(()=>{
 .post{
   overflow: hidden;
   text-overflow:ellipsis;
-  background-color: #0D131B;
+  border-style: solid;
+  border-color: #26384f;
+  border-width: 1px;
+  background-color: #1F2E41;
+  box-shadow: 0 0 5px #000;
+  padding: 30px 100px 30px 100px;
 }
 .post:hover{
   cursor: pointer;

@@ -2,7 +2,7 @@
   <div class="main">
 
     <div class="boards" v-for="(board,index) in boardNum">
-      <div class="board">
+      <div class="board" @click="router.push({name:'postList',query:{boardId:boards[index]?.boardId}})">
         <a style="color: #FFFFFF;font-size: 28px">
           {{boards[index]?.boardName.length>15?boards[index]?.boardName.substring(0,15)+"...":boards[index]?.boardName}}
         </a>
@@ -15,14 +15,16 @@
     </div>
 
   </div>
+  <br>
 </template>
 
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
 import axios from "axios";
-import {useRoute} from "vue-router";
+import {useRoute,useRouter} from "vue-router";
 
 const route = useRoute()
+const router = useRouter()
 const boards = ref()
 const boardNum = ref()
 
@@ -44,7 +46,12 @@ onMounted(()=>{
 .board{
   overflow: hidden;
   text-overflow:ellipsis;
-  background-color: #0D131B;
+  border-style: solid;
+  border-color: #26384f;
+  border-width: 1px;
+  background-color: #1F2E41;
+  box-shadow: 0 0 5px #000;
+  padding: 30px 100px 30px 100px;
 }
 .board:hover{
   cursor: pointer;

@@ -1,6 +1,7 @@
 package com.myApp.gamestore.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.myApp.gamestore.DTO.PostDTO;
 import com.myApp.gamestore.DTO.PostsListDTO;
 import com.myApp.gamestore.entity.Board;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,8 +39,8 @@ public class CommunityController {
 
     @RequestMapping("/addPost")
     public myResult addPost(@RequestBody Post post) {
-
-        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+        boolean result = postService.save(post);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),result);
     }
 
     // /getPosts?boardId=
@@ -85,11 +87,25 @@ public class CommunityController {
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
     }
 
+    @RequestMapping("addReply")
+    public myResult addReply(@RequestBody Reply reply){
+        boolean result = replyService.save(reply);
+        if (result) {
+            UpdateWrapper<Post> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("post_id",reply.getPostId());
+            updateWrapper.set("last_reply_time",reply.getCreatedTime());
+            postService.update(updateWrapper);
+            return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+        }
+        return new myResult(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMsg());
+    }
+
     @RequestMapping("/getReplies")
-    public myResult getReplies(@RequestParam(required = false, defaultValue = "") Integer postId){
+    public myResult getReplies(@RequestParam(required = false, defaultValue = "") Integer postId,@RequestParam(required = false, defaultValue = "1") Integer page){
         QueryWrapper<Reply> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("created_time");
         queryWrapper.eq("post_id",postId);
+        queryWrapper.last("limit "+(page-1)*10+",10");
         List<Reply> list = replyService.list(queryWrapper);
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
     }

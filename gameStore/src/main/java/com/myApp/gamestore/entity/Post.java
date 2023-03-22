@@ -8,143 +8,123 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 
+ *
  * @TableName post
  */
 @TableName(value ="post")
 public class Post implements Serializable {
-    /**
-     * 
-     */
+
     @TableId(type = IdType.AUTO)
     private Integer postId;
 
-    /**
-     * 
-     */
     private String postTitle;
 
-    /**
-     * 
-     */
     private String contents;
 
-    /**
-     * 
-     */
     private String userName;
 
-    /**
-     * 
-     */
     private Integer boardId;
 
-    /**
-     * 
-     */
     private Date createdTime;
 
-    /**
-     * 
-     */
     private Date lastReplyTime;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
     /**
-     * 
+     *
      */
     public Integer getPostId() {
         return postId;
     }
 
     /**
-     * 
+     *
      */
     public void setPostId(Integer postId) {
         this.postId = postId;
     }
 
     /**
-     * 
+     *
      */
     public String getPostTitle() {
         return postTitle;
     }
 
     /**
-     * 
+     *
      */
     public void setPostTitle(String postTitle) {
         this.postTitle = postTitle;
     }
 
     /**
-     * 
+     *
      */
     public String getContents() {
         return contents;
     }
 
     /**
-     * 
+     *
      */
     public void setContents(String contents) {
         this.contents = contents;
     }
 
     /**
-     * 
+     *
      */
     public String getUserName() {
         return userName;
     }
 
     /**
-     * 
+     *
      */
     public void setUserName(String userName) {
         this.userName = userName;
     }
 
     /**
-     * 
+     *
      */
     public Integer getBoardId() {
         return boardId;
     }
 
     /**
-     * 
+     *
      */
     public void setBoardId(Integer boardId) {
         this.boardId = boardId;
     }
 
     /**
-     * 
+     *
      */
     public Date getCreatedTime() {
         return createdTime;
     }
 
     /**
-     * 
+     *
      */
     public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
     }
 
     /**
-     * 
+     *
      */
     public Date getLastReplyTime() {
         return lastReplyTime;
     }
 
     /**
-     * 
+     *
      */
     public void setLastReplyTime(Date lastReplyTime) {
         this.lastReplyTime = lastReplyTime;
