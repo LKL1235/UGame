@@ -5,8 +5,10 @@ import com.myApp.gamestore.DTO.PostDTO;
 import com.myApp.gamestore.DTO.PostsListDTO;
 import com.myApp.gamestore.entity.Board;
 import com.myApp.gamestore.entity.Post;
+import com.myApp.gamestore.entity.Reply;
 import com.myApp.gamestore.service.BoardService;
 import com.myApp.gamestore.service.PostService;
+import com.myApp.gamestore.service.ReplyService;
 import com.myApp.gamestore.utils.ResultCode;
 import com.myApp.gamestore.utils.myResult;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class CommunityController {
     private PostService postService;
     @Autowired
     private BoardService boardService;
+    @Autowired
+    private ReplyService replyService;
 
     // /getPosts?boardId=
     @RequestMapping("/getPosts")
@@ -65,6 +69,15 @@ public class CommunityController {
         queryWrapper.like("board_name",name);
         // queryWrapper.last();
         List<Board> list = boardService.list(queryWrapper);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
+    }
+
+    @RequestMapping("/getReplies")
+    public myResult getReplies(@RequestParam(required = false, defaultValue = "") Integer postId){
+        QueryWrapper<Reply> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("created_time");
+        queryWrapper.eq("post_id",postId);
+        List<Reply> list = replyService.list(queryWrapper);
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
     }
 }

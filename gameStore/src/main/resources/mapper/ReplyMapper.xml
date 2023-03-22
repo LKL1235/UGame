@@ -7,7 +7,7 @@
     <resultMap id="BaseResultMap" type="com.myApp.gamestore.entity.Reply">
             <id property="replyId" column="reply_id" jdbcType="INTEGER"/>
             <result property="contents" column="contents" jdbcType="VARCHAR"/>
-            <result property="userName" column="user_name" jdbcType="INTEGER"/>
+            <result property="userName" column="user_name" jdbcType="VARCHAR"/>
             <result property="postId" column="post_id" jdbcType="INTEGER"/>
             <result property="createdTime" column="created_time" jdbcType="TIMESTAMP"/>
     </resultMap>

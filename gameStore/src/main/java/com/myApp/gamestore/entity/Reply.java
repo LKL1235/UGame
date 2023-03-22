@@ -27,7 +27,7 @@ public class Reply implements Serializable {
     /**
      * 
      */
-    private Integer userName;
+    private String userName;
 
     /**
      * 
@@ -73,14 +73,14 @@ public class Reply implements Serializable {
     /**
      * 
      */
-    public Integer getUserName() {
+    public String getUserName() {
         return userName;
     }
 
     /**
      * 
      */
-    public void setUserName(Integer userName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
 
