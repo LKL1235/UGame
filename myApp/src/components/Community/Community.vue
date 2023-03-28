@@ -100,7 +100,7 @@ onMounted(()=>{
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  background-image: url('http://127.0.0.1:8889/background/communitybackground.jpg');
+  background-image: url('/communitybackground.jpg');
 }
 .box{
   display: grid;

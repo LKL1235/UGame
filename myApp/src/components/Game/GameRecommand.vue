@@ -7,7 +7,7 @@
       </n-icon>
     </div>
 
-    <div style="float: left">
+    <div style="float: left" @click="info(props.game[gameIndex*3].gameId)">
       <img :src="props.game[gameIndex*3].img[1]" style="width: 306px;height: 281px">
       <div style="background-color: #20769B;width: 306px;height: 100px;margin-left: 0px;margin-top: -6px;text-align: center;color: #FFFFFF;font-size: 20px">
         <a style="margin-top: 5%">{{props.game[gameIndex*3].gameName}}</a>
@@ -22,7 +22,7 @@
       </div>
     </div>
 
-    <div style="float: left;margin-left: 14px">
+    <div style="float: left;margin-left: 14px" @click="info(props.game[1+gameIndex*3].gameId)">
       <img :src="props.game[1+gameIndex*3].img[1]" style="width: 306px;height: 281px">
       <div style="background-color: #20769B;width: 306px;height: 100px;margin-left: 0px;margin-top: -6px;text-align: center;color: #FFFFFF;font-size: 20px">
         {{props.game[1+gameIndex*3].gameName}}
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div style="float: left;margin-left: 14px">
+    <div style="float: left;margin-left: 14px" @click="info(props.game[2+gameIndex*3].gameId)">
       <img :src="props.game[2+gameIndex*3].img[1]" style="width: 306px;height: 281px">
       <div style="background-color: #20769B;width: 306px;height: 100px;margin-left: 0px;margin-top: -6px;text-align: center;color: #FFFFFF;font-size: 20px">
         {{props.game[2+gameIndex*3].gameName}}
@@ -47,7 +47,7 @@
             <a style="color: #FFFFFF">{{tag}}</a>
           </div>
         </div>
-        <div style="position: relative;left: 10%;top: 30%;color: #BAE327">
+        <div style="position: relative;left: 10%;top: 30%;color: #BAE327" >
 <!--          {{'￥'+props.game[2+gameIndex*3].price}}-->
           {{props.game[2+gameIndex*3].price==0.00?'免费开玩':'￥'+props.game[2+gameIndex*3].price}}
         </div>
@@ -76,6 +76,9 @@
 <script setup lang="ts">
 import {ChevronLeft,ChevronRight} from "@vicons/fa"
 import {onMounted, ref} from "vue";
+import {useRouter} from "vue-router";
+
+const router = useRouter()
 
 var timer
 const props = defineProps<{
@@ -111,6 +114,9 @@ const mouseOut = () => {
   },5000)
 }
 
+const info=(gameId:number)=>{
+  router.push({name:'gameInfo',params:{gameId}})
+}
 onMounted(()=>{
   timer=setInterval(()=>{
     nextIndex()

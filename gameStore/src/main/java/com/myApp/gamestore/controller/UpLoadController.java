@@ -2,16 +2,20 @@ package com.myApp.gamestore.controller;
 
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.myApp.gamestore.DTO.UpLoadDTO;
 import com.myApp.gamestore.entity.Developer;
 import com.myApp.gamestore.entity.Game;
+import com.myApp.gamestore.entity.User;
 import com.myApp.gamestore.service.DeveloperService;
 import com.myApp.gamestore.service.GameService;
+import com.myApp.gamestore.service.UserService;
 import com.myApp.gamestore.utils.ResultCode;
 import com.myApp.gamestore.utils.myResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,8 +37,14 @@ public class UpLoadController {
     private DeveloperService developerService;
     @Autowired
     private GameService gameService;
+    @Autowired
+    private UserService userService;
 
-    private static final String BASE_FILE_PATH ="G:\\img\\";
+    @Value("${path.BASE_FILE_PATH}")
+    private  String BASE_FILE_PATH ;
+    @Value("${path.BASE_URL_PATH}")
+    private   String BASE_URL_PATH ;
+
     @RequestMapping("/upload")
     public myResult upload(@RequestBody UpLoadDTO upLoadDTO){
         QueryWrapper queryWrapper=new QueryWrapper<>();
@@ -54,7 +64,6 @@ public class UpLoadController {
     }
     @RequestMapping("/ImgUpload")
     public myResult ImgUpload(MultipartFile file ,@RequestParam String name){
-        LOG.info("get in");
         String originalFilename = file.getOriginalFilename();
         if (StrUtil.isBlank(originalFilename)||file.isEmpty()) {
             return new myResult(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMsg());
@@ -75,4 +84,29 @@ public class UpLoadController {
 
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
     }
+
+    @RequestMapping("/avatarUpload")
+    public myResult avatarUpload(MultipartFile file ,@RequestParam String userName){
+        String originalFilename = file.getOriginalFilename();
+        if (StrUtil.isBlank(originalFilename)||file.isEmpty()) {
+            return new myResult(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMsg());
+        }
+        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        String fileName = userName+extension;
+        String filePath = BASE_FILE_PATH + fileName;
+
+        File localFile = new File(filePath);
+        try {
+            file.transferTo(localFile);
+            UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.set("avatar",BASE_URL_PATH+fileName);
+            userService.update(updateWrapper);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new myResult(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMsg());
+        }
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+    }
+
+
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myApp.gamestore.mapper.FriendApplyMapper">
+
+    <resultMap id="BaseResultMap" type="com.myApp.gamestore.entity.FriendApply">
+            <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="fromUser" column="from_user" jdbcType="VARCHAR"/>
+            <result property="toUser" column="to_user" jdbcType="VARCHAR"/>
+            <result property="timestamp" column="timestamp" jdbcType="TIMESTAMP"/>
+            <result property="apply" column="apply" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,from_user,to_user,
+        timestamp,apply
+    </sql>
+</mapper>

@@ -34,7 +34,7 @@
 
     <!--  个人中心  -->
     <n-dropdown class="" trigger="hover" :options="userOptions" @select="handleSelect">
-      <a class="fontColor pointerStyle" style="  position:absolute;left:760px;top:47px;" @click="router.push({name:'userinfo'})">{{ nickName }}</a>
+      <a class="fontColor pointerStyle" style="  position:absolute;left:760px;top:47px;" @click="router.push({name:'userInfo'})">{{ nickName }}</a>
     </n-dropdown>
 
     <!--  聊天  -->

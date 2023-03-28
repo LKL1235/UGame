@@ -106,6 +106,13 @@ const router = createRouter({
           path:'/chat',
           name:'chat',
           component:Chat,
+          children:[
+            {
+              path: 'Message',
+              name: 'Message',
+              component: ()=>import('@/components/Chat/ChatMessage.vue')
+            }
+          ]
         },
         {
           path:'/developer',

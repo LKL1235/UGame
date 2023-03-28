@@ -8,9 +8,9 @@
       </n-icon>
     </div>
     <!--  图片-->
-      <img :src="props.game[gameIndex].img[0]" class="imgSlot" :alt="props.game[gameIndex].gameName">
+      <img :src="props.game[gameIndex].img[0]" class="imgSlot" :alt="props.game[gameIndex].gameName" @click="info(props.game[gameIndex].gameId)">
 <!--  信息栏  -->
-    <div class="info">
+    <div class="info" @click="info(props.game[gameIndex].gameId)">
       <div>
         <a :style="{fontSize:props.game[gameIndex].gameName.length>21?'21px':'28px',color: '#FFFFFF'}">{{props.game[gameIndex].gameName}}</a>
       </div>
@@ -73,7 +73,10 @@
 <script setup lang="ts">
 import {ChevronLeft,ChevronRight} from "@vicons/fa"
 import {onMounted, ref} from "vue";
+import {useRouter} from "vue-router";
 
+
+const router = useRouter()
 
 var timer
 const props = defineProps<{
@@ -104,6 +107,10 @@ const mouseOut = () => {
   timer=setInterval(()=>{
     nextIndex()
   },5000)
+}
+
+const info=(gameId:number)=>{
+  router.push({name:'gameInfo',params:{gameId}})
 }
 
 onMounted(()=>{

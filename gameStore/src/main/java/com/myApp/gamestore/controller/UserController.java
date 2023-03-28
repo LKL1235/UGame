@@ -67,7 +67,7 @@ public class UserController {
                         login.setPassWord(registerDTO.getPassWord());
                         if(loginService.save(login)){
                             userService.save(user);
-                            userService.createLibrary(user.getName());
+                            // userService.createLibrary(user.getName());
                             return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
                         }else {
                             return new myResult(ResultCode.FAILURE.getCode(), "注册失败");
