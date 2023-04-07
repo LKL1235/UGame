@@ -2,26 +2,22 @@
 
   <n-form
       :model="form"
+      style="width: 50vw;margin-left: 25vw"
   >
-    <n-form-item label="订单号">
-      <n-input v-model:value="form.tradeNo">
-
-      </n-input>
-    </n-form-item>
 
     <n-form-item label="名称">
-      <n-input v-model:value="form.subject">
+      <n-input v-model:value="form.subject" disabled>
 
       </n-input>
     </n-form-item>
 
     <n-form-item label="价格">
-      <n-input v-model:value="form.totalAmount">
+      <n-input v-model:value="form.totalAmount" disabled>
 
       </n-input>
     </n-form-item>
 
-    <button @click="post1">222</button>
+    <button @click="post1">提交</button>
   </n-form>
 </template>
 
@@ -35,8 +31,8 @@ const User=useUserStore()
 
 const form=ref({
   tradeNo:"",
-  subject:"",
-  totalAmount:"",
+  subject:"开发者保证金",
+  totalAmount:"100.0",
   userName:"",
   createTime:"",
 })

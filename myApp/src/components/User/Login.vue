@@ -40,7 +40,7 @@
           </n-checkbox>
 <!--登录-->
         <button id="loginButton" @click="handleValidateLoginButtonClick">登录</button>
-        <router-link to="" class="link">请求帮助，我无法登录</router-link>
+        <router-link to="forget" class="link">请求帮助，我无法登录</router-link>
       </n-form>
       <img src="../../../public/join_pc.png" style="width: 200px;position: fixed;left: 1070px;top: 210px;">
       <a style="width:200px;white-space:pre-line ;color: #BDBEBF;position: fixed;top: 360px;left: 1100px;font-size: 28px">加入 UGame，</a>
@@ -98,7 +98,7 @@
             </n-popover>
           </n-form-item>
           <!-- 确认密码  -->
-          <n-form-item path="confirmPassWord" label="确认密码密码" class="formItem">
+          <n-form-item path="confirmPassWord" label="确认密码" class="formItem">
             <n-input v-model:value="formRegister.confirmPassWord" type="password" show-password-on="click" placeholder="">
 
             </n-input>

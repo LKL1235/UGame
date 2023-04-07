@@ -29,6 +29,7 @@
           <n-input v-model:value="formValue.about" round type="textarea" placeholder="关于这款游戏（内容、玩法）" style="width: 80%" />
         </n-form-item>
       </n-form>
+
       <n-button type="primary" style="margin-left:42%;width: 150px;height: 50px" @click="upload">
         发布
       </n-button>

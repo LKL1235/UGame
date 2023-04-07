@@ -5,33 +5,38 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 
+ *
  * @TableName developer
  */
 @TableName(value ="developer")
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Developer implements Serializable {
     /**
-     * 
+     *
      */
     @TableId
     private String name;
 
     /**
-     * 
+     *
      */
     private Double totalReward;
 
     /**
-     * 
+     *
      */
     private Double reward;
 
     /**
-     * 
+     *
      */
     private String repository;
 

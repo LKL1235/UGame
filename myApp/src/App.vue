@@ -4,16 +4,16 @@
   <n-message-provider>
     <!--  使用暗色主题-->
   <n-config-provider :theme="darkTheme" :theme-overrides="themeOverrides">
-    <RouterView/>
+    <RouterView :key="routerKey"/>
   </n-config-provider>
 </n-message-provider>
 </template>
 
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
+import {RouterLink, RouterView, useRoute} from 'vue-router'
 import {darkTheme} from 'naive-ui'
 import { NConfigProvider} from 'naive-ui'
-import {onMounted, ref} from "vue";
+import {computed, onMounted, ref} from "vue";
 import axios from "axios";
 import {useUserStore} from "@/stores/User";
 import GlobalView from "@/views/GlobalView.vue"
@@ -33,12 +33,19 @@ const themeOverrides = {
   },
   // ...
 }
+const route = useRoute()
+
+const routerKey=computed(() => {
+  return route.path + Math.random()
+})
+
 //判断是否已登录
 onMounted(()=>{
   axios.post("/isLogin",).then((respon)=>{
       if(respon.data.code===200){
         store.$state.user={...respon.data.data}
         store.$state.user.isLogin=true
+        store.$state.user.isRoot = false
       }
   }).catch(error=>console.log(error))
 })

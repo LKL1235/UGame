@@ -3,11 +3,11 @@
     <div class="release" @click="()=>{router.push({name:'gameUpLoad'})}">
       <a>发布游戏</a>
     </div>
-    <div class="update" @click="()=>{router.push({name:'gameUpLoad'})}">
+    <div class="update" @click="()=>{router.push({name:'repository'})}">
       <a>发布更新</a>
     </div>
-    <div class="yield" @click="()=>{router.push({name:'gameUpLoad'})}">
-      <a>查看收益</a>
+    <div class="yield" >
+
     </div>
     <div class="repository" @click="()=>{router.push({name:'repository'})}">
       <a>我的仓库</a>

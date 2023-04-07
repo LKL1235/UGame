@@ -23,33 +23,33 @@
           />
         </div>
 <!--  商店选单-->
-        <div class="searchBoxItem pointerStyle">
-          <n-dropdown class="" trigger="hover" :options="()=>{}" @select="()=>{}">
-            <a style="position: relative;">您的商店</a>
-          </n-dropdown>
-        </div>
-<!--新鲜推荐-->
-        <div class="searchBoxItem pointerStyle">
-          <n-dropdown class="" trigger="hover" :options="()=>{}" @select="()=>{}">
-            <a style="position: relative;top: 1px">新鲜推荐</a>
-          </n-dropdown>
-        </div>
-<!--类别-->
-        <div class="searchBoxItem pointerStyle">
-          <n-dropdown class="" trigger="hover" :options="()=>{}" @select="()=>{}">
-            <a style="position: relative;top: 1px">类别</a>
-          </n-dropdown>
-        </div>
+<!--        <div class="searchBoxItem pointerStyle">-->
+<!--          <n-dropdown class="" trigger="hover" :options="()=>{}" @select="()=>{}">-->
+<!--            <a style="position: relative;">您的商店</a>-->
+<!--          </n-dropdown>-->
+<!--        </div>-->
+<!--&lt;!&ndash;新鲜推荐&ndash;&gt;-->
+<!--        <div class="searchBoxItem pointerStyle">-->
+<!--          <n-dropdown class="" trigger="hover" :options="()=>{}" @select="()=>{}">-->
+<!--            <a style="position: relative;top: 1px">新鲜推荐</a>-->
+<!--          </n-dropdown>-->
+<!--        </div>-->
+<!--&lt;!&ndash;类别&ndash;&gt;-->
+<!--        <div class="searchBoxItem pointerStyle">-->
+<!--          <n-dropdown class="" trigger="hover" :options="()=>{}" @select="()=>{}">-->
+<!--            <a style="position: relative;top: 1px">类别</a>-->
+<!--          </n-dropdown>-->
+<!--        </div>-->
 <!-- 搜索框-->
         <n-input v-model:value="search"
                  type="text"
                  placeholder="搜索"
                  style="width: 200px;
                  background-color: #316282;
-                 position: relative;left: 50%;" >
+                 position: absolute;left: 40vw;" >
         </n-input>
 <!-- 搜索按钮-->
-        <div style="background-color: #64B6E5;width: 28px;height: 28px;position: relative;left: 903px;top: -31px;border-radius: 2px;" @click="gotoSearch">
+        <div style="background-color: #64B6E5;width: 28px;height: 28px;position: absolute;left: 49vw;top: 3px;border-radius: 2px;" @click="gotoSearch">
           <n-icon size="26" color="#2E4D6A">
             <Search class="pointerStyle"/>
           </n-icon>

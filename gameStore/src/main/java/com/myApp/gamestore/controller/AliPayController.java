@@ -9,8 +9,15 @@ import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.myApp.gamestore.DTO.AliPayDTO;
 import com.myApp.gamestore.config.AliPayConfig;
+import com.myApp.gamestore.entity.Developer;
+import com.myApp.gamestore.entity.Game;
+import com.myApp.gamestore.entity.Library;
 import com.myApp.gamestore.mapper.OrdersMapper;
 import com.myApp.gamestore.entity.Orders;
+import com.myApp.gamestore.service.DeveloperService;
+import com.myApp.gamestore.service.GameService;
+import com.myApp.gamestore.service.LibraryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -37,6 +44,13 @@ public class AliPayController {
 
     @Resource
     private OrdersMapper ordersMapper;
+
+    @Autowired
+    private GameService gameService;
+    @Autowired
+    private LibraryService libraryService;
+    @Autowired
+    private DeveloperService developerService;
 
     @PostMapping("/developerPay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
     public String developerPay(@RequestBody AliPayDTO aliPayDTO) throws Exception {
@@ -77,7 +91,15 @@ public class AliPayController {
     public String gamePay(@RequestBody AliPayDTO aliPayDTO) throws Exception {
         aliPayDTO.setTradeNo(System.currentTimeMillis()+"0");
         aliPayDTO.setSubject(aliPayDTO.getUserName());
-        System.out.println(aliPayDTO);
+        // System.out.println(aliPayDTO.getTradeNo());
+        // System.out.println(aliPayDTO.getSubject());
+        System.out.println(aliPayDTO.getTotalAmount());
+        if(aliPayDTO.getTotalAmount()==0){
+            ordersMapper.insert(new Orders(null,aliPayDTO.getGame_id(),aliPayDTO.getSubject(),aliPayDTO.getTradeNo(),null,aliPayDTO.getCreateTime(),null,"已支付", aliPayDTO.getTotalAmount()));
+            Game game = gameService.getById(aliPayDTO.getGame_id());
+            libraryService.save(new Library(null,aliPayDTO.getSubject(),aliPayDTO.getGame_id(),game.getGameName()));
+            return "购买完成";
+        }else{
         // aliPayDTO.setTotalAmount(100.00);
         // 1. 创建Client，通用SDK提供的Client，负责调用支付宝的API
         AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, aliPayConfig.getAppId(),
@@ -104,6 +126,7 @@ public class AliPayController {
         }
 
         return form;
+        }
     }
 
     @PostMapping("/notify")  // 注意这里必须是POST接口
@@ -147,6 +170,16 @@ public class AliPayController {
                     orders.setPayTime(new Date());
                     orders.setState("已支付");
                     ordersMapper.updateById(orders);
+                    Integer gameId = orders.getGameId();
+                    if(gameId!=null) {
+                        QueryWrapper<Game> gameQueryWrapper = new QueryWrapper<>();
+                        gameQueryWrapper.eq("game_id", gameId);
+                        Game game = gameService.getOne(gameQueryWrapper);
+                        libraryService.save(new Library(null, orders.getName(), gameId, game.getGameName()));
+                    }else{
+                        String name = orders.getName().replace("developerPay","");
+                        developerService.save(new Developer(name,0.0,0.0,name));
+                    }
                 }
             }
         }

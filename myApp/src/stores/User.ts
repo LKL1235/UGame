@@ -16,6 +16,7 @@ export const useUserStore = defineStore('user', () => {
     balance:0,
     regDate:"",
     latestDate:"",
+    isRoot:false
   })
   return { user }
 })

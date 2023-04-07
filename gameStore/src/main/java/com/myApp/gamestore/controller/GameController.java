@@ -2,8 +2,6 @@ package com.myApp.gamestore.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.myApp.gamestore.DTO.GameInfoDTO;
 import com.myApp.gamestore.DTO.GameShowDTO;
 import com.myApp.gamestore.entity.Game;
@@ -79,15 +77,17 @@ public class GameController {
             gameShowDTO.setGameName(item.getGameName());
             ArrayList<String> strings = new ArrayList<>();
             String path = BASE_FILE_PATH+item.getImages();
-            // LOG.info("path={}",path);
+            LOG.info("path={}",path);
+
             File file = new File(path);
             File[] fs = file.listFiles();
-            // LOG.info("fs={}", (Object) fs);
+            LOG.info("fs={}", (Object) fs);
             if(fs!=null){
                 for(File f:fs){
                     if(!f.isDirectory()) {
                         String s=f.getName();
                         String urlPath=BASE_URL_PATH+item.getGameName()+"/"+s;
+                        LOG.info("urlPath:{}",urlPath);
                         strings.add(urlPath);
                     }
                 }
@@ -105,8 +105,9 @@ public class GameController {
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),gameShowDTOList);
     }
     @RequestMapping("/search")
-    public myResult search(@RequestParam(defaultValue = "", name="gameName",required = false) String gameName,@RequestParam(defaultValue = "20",name="page",required = true) Integer page){
+    public myResult search(@RequestParam(defaultValue = "", name="gameName",required = false) String gameName,@RequestParam(defaultValue = "1",name="page",required = true) Integer page){
         List<Game> list=gameService.searchByName(gameName,page);
+        LOG.info("list:{}",list);
         List<GameShowDTO> gameShowDTOList=new ArrayList<>();
         list.forEach((item)->{
             GameShowDTO gameShowDTO = new GameShowDTO();
@@ -114,10 +115,8 @@ public class GameController {
             gameShowDTO.setGameName(item.getGameName());
             ArrayList<String> strings = new ArrayList<>();
             String path = BASE_FILE_PATH+item.getImages();
-            LOG.info("path={}",path);
             File file = new File(path);
             File[] fs = file.listFiles();
-            LOG.info("fs={}", (Object) fs);
             if(fs!=null){
                 for(File f:fs){
                     if(!f.isDirectory()) {
@@ -175,5 +174,68 @@ public class GameController {
         BeanUtil.copyProperties(game,gameInfoDTO);
         gameInfoDTO.setImgs(strings);
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),gameInfoDTO);
+    }
+
+    @RequestMapping("/repository")
+    public myResult repository(@RequestParam(defaultValue = "", name="userName",required = false) String userName,@RequestParam(defaultValue = "1",name="page",required = true) Integer page){
+        QueryWrapper<Game> queryWrapper = new QueryWrapper<Game>();
+        queryWrapper.eq("repository",userName);
+        queryWrapper.orderByDesc("sales");
+        queryWrapper.last("limit "+(page-1)*20+",20");
+        List<Game> list = gameService.list(queryWrapper);
+
+        LOG.info("list:{}",list);
+        List<GameShowDTO> gameShowDTOList=new ArrayList<>();
+        list.forEach((item)->{
+            GameShowDTO gameShowDTO = new GameShowDTO();
+            gameShowDTO.setGameId(item.getGameId());
+            gameShowDTO.setGameName(item.getGameName());
+            ArrayList<String> strings = new ArrayList<>();
+            String path = BASE_FILE_PATH+item.getImages();
+            File file = new File(path);
+            File[] fs = file.listFiles();
+            if(fs!=null){
+                for(File f:fs){
+                    if(!f.isDirectory()) {
+                        String s=f.getName();
+                        String urlPath=BASE_URL_PATH+item.getGameName()+"/"+s;
+                        strings.add(urlPath);
+                    }
+                }
+                gameShowDTO.setImg(strings);
+                List<String> tagStringList=new ArrayList<>();
+                String[] tagString;
+                tagString=item.getTags().split(",");
+                Collections.addAll(tagStringList, tagString);
+                gameShowDTO.setTags(tagStringList);
+                gameShowDTO.setPrice(item.getPrice());
+                gameShowDTOList.add(gameShowDTO);
+            }
+        });
+        LOG.info("myResult={}",gameShowDTOList);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),gameShowDTOList);
+    }
+
+    @RequestMapping("/repositoryTotal")
+    public myResult repositoryTotal(@RequestParam(defaultValue = "", name="userName",required = false) String userName){
+            QueryWrapper<Game> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("repository",userName);
+            long total = gameService.count(queryWrapper);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),total);
+    }
+
+    @RequestMapping("/all")
+    public myResult all(){
+        List<Game> list = gameService.list();
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
+    }
+
+
+    @RequestMapping("/delete")
+    public myResult delete(@RequestParam Integer gameId){
+        QueryWrapper<Game> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("game_id",gameId);
+        gameService.remove(queryWrapper);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
     }
 }

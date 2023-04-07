@@ -8,24 +8,24 @@
       </n-icon>
     </div>
     <!--  图片-->
-      <img :src="props.game[gameIndex].img[0]" class="imgSlot" :alt="props.game[gameIndex].gameName" @click="info(props.game[gameIndex].gameId)">
+      <img :src="props.game[gameIndex]?.img[0]" class="imgSlot" :alt="props.game[gameIndex]?.gameName" @click="info(props.game[gameIndex]?.gameId)">
 <!--  信息栏  -->
-    <div class="info" @click="info(props.game[gameIndex].gameId)">
+    <div class="info" @click="info(props.game[gameIndex]?.gameId)">
       <div>
-        <a :style="{fontSize:props.game[gameIndex].gameName.length>21?'21px':'28px',color: '#FFFFFF'}">{{props.game[gameIndex].gameName}}</a>
+        <a :style="{fontSize:props.game[gameIndex]?.gameName.length>21?'21px':'28px',color: '#FFFFFF'}">{{props.game[gameIndex]?.gameName}}</a>
       </div>
 <!--图片4连-->
       <div class="miniImgDiv">
-        <img class="miniImg" :src="props.game[gameIndex].img[1]">
+        <img class="miniImg" :src="props.game[gameIndex]?.img[1]">
       </div>
       <div class="miniImgDiv">
-        <img class="miniImg" :src="props.game[gameIndex].img[2]">
+        <img class="miniImg" :src="props.game[gameIndex]?.img[2]">
       </div>
       <div class="miniImgDiv">
-        <img class="miniImg" :src="props.game[gameIndex].img[3]">
+        <img class="miniImg" :src="props.game[gameIndex]?.img[3]">
       </div>
       <div class="miniImgDiv">
-        <img class="miniImg" :src="props.game[gameIndex].img[4]">
+        <img class="miniImg" :src="props.game[gameIndex]?.img[4]">
       </div>
 
       <div style="text-align: left;height: 80%;">
@@ -33,13 +33,13 @@
           <a style="color: #FFFFFF;font-size: 21px;margin-left: 5%;">现已推出</a>
         </div>
       <!-- tags -->
-        <div v-for="tag in props.game[gameIndex].tags" style="background-color: #b8b6b4;width: 20%;margin-left: 5%;text-align: center;float: left">
+        <div v-for="tag in props.game[gameIndex]?.tags" style="background-color: #b8b6b4;width: 20%;margin-left: 5%;text-align: center;float: left">
           <a style="color: #FFFFFF">{{tag}}</a>
         </div>
       </div>
 <!--  价格  -->
       <div style="text-align: left">
-        <a style="color: #FFFFFF;margin-left: 5%">{{props.game[gameIndex].price==0.00?'免费开玩':'￥'+props.game[gameIndex].price}}</a>
+        <a style="color: #FFFFFF;margin-left: 5%">{{props.game[gameIndex]?.price==0.00?'免费开玩':'￥'+props.game[gameIndex]?.price}}</a>
       </div>
     </div>
     <!--  右箭头  -->

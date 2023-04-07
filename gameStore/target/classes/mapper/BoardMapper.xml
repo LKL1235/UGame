@@ -18,6 +18,6 @@
     <select id="listPage" resultType="com.myApp.gamestore.entity.Board">
         SELECT *
         FROM `board`
-        limit #{page},10
+        limit #{page},20
     </select>
 </mapper>

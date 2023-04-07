@@ -6,42 +6,72 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
- *
- * @TableName library
+ * 
+ * @TableName manager
  */
-@TableName(value ="library")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-public class Library implements Serializable {
+@TableName(value ="manager")
+public class Manager implements Serializable {
     /**
-     *
+     * 
      */
-    @TableId(type = IdType.AUTO)
+    @TableId
     private Integer id;
 
     /**
-     *
+     * 
      */
-    private String username;
+    private String name;
 
     /**
-     *
+     * 
      */
-    private Integer gameId;
-
-    /**
-     *
-     */
-    private String gameName;
+    private String password;
 
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
+
+    /**
+     * 
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * 
+     */
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    /**
+     * 
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * 
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * 
+     */
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * 
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public boolean equals(Object that) {
@@ -54,11 +84,10 @@ public class Library implements Serializable {
         if (getClass() != that.getClass()) {
             return false;
         }
-        Library other = (Library) that;
+        Manager other = (Manager) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
-            && (this.getUsername() == null ? other.getUsername() == null : this.getUsername().equals(other.getUsername()))
-            && (this.getGameId() == null ? other.getGameId() == null : this.getGameId().equals(other.getGameId()))
-            && (this.getGameName() == null ? other.getGameName() == null : this.getGameName().equals(other.getGameName()));
+            && (this.getName() == null ? other.getName() == null : this.getName().equals(other.getName()))
+            && (this.getPassword() == null ? other.getPassword() == null : this.getPassword().equals(other.getPassword()));
     }
 
     @Override
@@ -66,9 +95,8 @@ public class Library implements Serializable {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
-        result = prime * result + ((getUsername() == null) ? 0 : getUsername().hashCode());
-        result = prime * result + ((getGameId() == null) ? 0 : getGameId().hashCode());
-        result = prime * result + ((getGameName() == null) ? 0 : getGameName().hashCode());
+        result = prime * result + ((getName() == null) ? 0 : getName().hashCode());
+        result = prime * result + ((getPassword() == null) ? 0 : getPassword().hashCode());
         return result;
     }
 
@@ -79,9 +107,8 @@ public class Library implements Serializable {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", username=").append(username);
-        sb.append(", gameId=").append(gameId);
-        sb.append(", gameName=").append(gameName);
+        sb.append(", name=").append(name);
+        sb.append(", password=").append(password);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

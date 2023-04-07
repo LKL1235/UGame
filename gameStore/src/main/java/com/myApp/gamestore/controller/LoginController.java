@@ -3,9 +3,11 @@ package com.myApp.gamestore.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.myApp.gamestore.DTO.LoginDTO;
 import com.myApp.gamestore.entity.Login;
+import com.myApp.gamestore.entity.Manager;
 import com.myApp.gamestore.entity.User;
 import com.myApp.gamestore.service.IsLoginVerifyService;
 import com.myApp.gamestore.service.LoginService;
+import com.myApp.gamestore.service.ManagerService;
 import com.myApp.gamestore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -37,6 +39,9 @@ public class LoginController {
     private LoginDTO loginDTO;
     private LoginService loginService;
     private UserService userService;
+
+    @Autowired
+    private ManagerService managerService;
     @Autowired
     private void setIsLoginVerifyService(IsLoginVerifyService isLoginVerifyService){
         this.isLoginVerifyService=isLoginVerifyService;
@@ -117,5 +122,23 @@ public class LoginController {
         stringRedisTemplate.delete(whoAmI);
         System.out.println("LoginController:"+"登出");
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+    }
+
+    @RequestMapping("/managerLogin")
+    public myResult managerLogin(@RequestBody LoginDTO loginDTO, @CookieValue(value = "version", defaultValue = "none") String version, HttpServletResponse response){
+        String LoginStr=loginDTO.getVerifyCode();
+        String code= (String) stringRedisTemplate.opsForValue().get(version);
+        if(Objects.equals(code, LoginStr)) {
+            String name = loginDTO.getName();
+            String password = loginDTO.getPassWord();
+            QueryWrapper<Manager> queryWrapper =new QueryWrapper<>();
+            queryWrapper.eq("name",name);
+            queryWrapper.eq("password",password);
+            Manager manager = managerService.getOne(queryWrapper);
+            if (manager!=null){
+                return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+            }
+        }
+        return new myResult(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMsg());
     }
 }

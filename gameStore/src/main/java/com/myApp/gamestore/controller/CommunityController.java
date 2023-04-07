@@ -70,7 +70,7 @@ public class CommunityController {
 
     @RequestMapping("/addBoard")
     public myResult addBoard(@RequestBody Board board) {
-
+        boardService.save(board);
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
     }
     @RequestMapping("/getBoards")
@@ -110,4 +110,25 @@ public class CommunityController {
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
     }
 
+    @RequestMapping("/post/all")
+    public myResult all(){
+        List<Post> list = postService.list();
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
+    }
+
+    @RequestMapping("/post/delete")
+    public myResult delete(@RequestParam Integer postId){
+        QueryWrapper<Post> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("post_id",postId);
+        postService.remove(queryWrapper);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+    }
+
+    @RequestMapping("/board/delete")
+    public myResult boardDelete(@RequestParam Integer boardId){
+        QueryWrapper<Board> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("board_id",boardId);
+        boardService.remove(queryWrapper);
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+    }
 }

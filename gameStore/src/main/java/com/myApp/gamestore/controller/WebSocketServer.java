@@ -2,16 +2,19 @@ package com.myApp.gamestore.controller;
 
 import cn.hutool.json.JSONObject;
 import cn.hutool.json.JSONUtil;
+import com.myApp.gamestore.entity.Message;
+import com.myApp.gamestore.service.MessageService;
+import com.myApp.gamestore.service.impl.MessageServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
 import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -23,14 +26,18 @@ public class WebSocketServer {
     private static final Logger log = LoggerFactory.getLogger(WebSocketServer.class);
     public static final Map<String, Session> sessionMap = new ConcurrentHashMap<>();
 
-    /**
-     * 连接建立成功调用的方法
-     */
+
+    private static ApplicationContext applicationContext;
+
+    public static void setApplicationContext(ApplicationContext context) {
+        applicationContext = context;
+    }
+
+
     @OnOpen
     public void onOpen(Session session,@PathParam("username") String username) {
         sessionMap.put(username, session);
-            log.info("有新用户加入，username={}, 当前在线人数为：{}", username, sessionMap.size());
-
+            log.info("有用户上线，username={}, 当前在线人数为：{}", username, sessionMap.size());
     }
     /**
      * 连接关闭调用的方法
@@ -51,11 +58,29 @@ public class WebSocketServer {
     public void onMessage(String message, Session session,@PathParam("username") String username) {
         log.info("服务端收到用户username={}的消息:{}", username, message);
         JSONObject obj = JSONUtil.parseObj(message);
-        String url = obj.getStr("url"); // to表示发送给哪个用户，比如 admin
-        String time = obj.getStr("time"); // 发送的消息文本  hello
-        boolean isLive=(boolean)obj.get("isLive");
-        String tips=obj.getStr("tips");
-        boolean isPause=(boolean)obj.get("isPause");
+        String type = obj.getStr("type");
+
+        if ("message".equals(type)){
+            String fromUserName = obj.getStr("fromUserName");
+            String avatar = obj.getStr("avatar");
+            String toUserName = obj.getStr("toUserName");
+            String content = obj.getStr("content");
+            Date timeStamp = obj.getDate("timeStamp");
+            MessageService messageService = applicationContext.getBean(MessageService.class);
+            messageService.save(new Message(null,avatar,fromUserName,toUserName,content,"text",timeStamp));
+            if (sessionMap.containsKey(toUserName)) {
+                sendMessage(message, sessionMap.get(toUserName));
+            }
+        } else if (Objects.equals(type,"refresh")) {
+            String toUserName = obj.getStr("toUserName");
+            if(sessionMap.containsKey(toUserName)){
+                sendMessage(message,sessionMap.get(toUserName));
+            }
+        }/*else if (Objects.equals(type,"apply")) {
+
+        }*/
+
+        // boolean isPause=(boolean)obj.get("isPause");
         // {"to": "admin", "text": "聊天文本"}
 
     }

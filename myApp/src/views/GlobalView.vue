@@ -140,6 +140,10 @@ const userOptions=[
     label:"个人资料",
     key:"userInfo"
   },
+  {
+    label: "库",
+    key:"library"
+  }
 ]
 //头像旁边的选单
 const topOptions=[
@@ -168,6 +172,7 @@ const handleSelect = (key:string) => {
         regDate:"",
         latestDate:"",
       }
+      router.push({name:'login'})
     }).catch(error=>{console.log(error)})
   }
 }

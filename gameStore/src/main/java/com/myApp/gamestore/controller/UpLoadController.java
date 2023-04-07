@@ -62,6 +62,32 @@ public class UpLoadController {
         gameService.save(game);
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
     }
+
+    @RequestMapping("/gameUpload")
+    public myResult gameUpload(MultipartFile file ,@RequestParam Integer gameId){
+        String originalFilename = file.getOriginalFilename();
+        if (StrUtil.isBlank(originalFilename)||file.isEmpty()) {
+            return new myResult(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMsg());
+        }
+        String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
+        String fileName = gameId+extension;
+        String filePath = BASE_FILE_PATH + fileName;
+
+        File localFile = new File(filePath);
+        try {
+            file.transferTo(localFile);
+            UpdateWrapper updateWrapper = new UpdateWrapper<Game>();
+            updateWrapper.eq("game_id",gameId);
+            updateWrapper.set("files",BASE_URL_PATH+fileName);
+            gameService.update(updateWrapper);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new myResult(ResultCode.FAILURE.getCode(), ResultCode.FAILURE.getMsg());
+        }
+
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+    }
+
     @RequestMapping("/ImgUpload")
     public myResult ImgUpload(MultipartFile file ,@RequestParam String name){
         String originalFilename = file.getOriginalFilename();
@@ -99,6 +125,7 @@ public class UpLoadController {
         try {
             file.transferTo(localFile);
             UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("name",userName);
             updateWrapper.set("avatar",BASE_URL_PATH+fileName);
             userService.update(updateWrapper);
         } catch (IOException e) {

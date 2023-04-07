@@ -6,6 +6,7 @@
 
     <resultMap id="BaseResultMap" type="com.myApp.gamestore.entity.Message">
             <id property="id" column="id" jdbcType="INTEGER"/>
+            <result property="avatar" column="avatar" jdbcType="VARCHAR"/>
             <result property="fromUserName" column="from_user_name" jdbcType="VARCHAR"/>
             <result property="toUserName" column="to_user_name" jdbcType="VARCHAR"/>
             <result property="content" column="content" jdbcType="VARCHAR"/>
@@ -14,7 +15,8 @@
     </resultMap>
 
     <sql id="Base_Column_List">
-        id,from_user_name,to_user_name,
-        content,type,time_stamp
+        id,avatar,from_user_name,
+        to_user_name,content,type,
+        time_stamp
     </sql>
 </mapper>
