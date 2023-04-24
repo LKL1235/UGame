@@ -16,7 +16,7 @@
         :rules="formRules"
       >
 <!--  账号-->
-        <n-form-item path="name" label="用账户名称登录" label-style="color: #1999ff;" class="formItem" style="top:20px" >
+        <n-form-item path="name" label="用户名" label-style="color: #1999ff;" class="formItem" style="top:20px" >
           <n-input v-model:value="form.name" placeholder="">
 
           </n-input>

@@ -7,6 +7,9 @@
     <span style="color: #FFFFFF;margin-left: 25%;">特别推荐</span>
   </div>
   <GameRecommand :game="gameByNum"/>
+  <div style="margin-top: 10vh">
+    <SearchList :games="gameList"></SearchList>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -21,7 +24,12 @@ const game=ref([
 const gameByNum=ref([
 
 ])
+
+const gameList=ref([])
+
 const GameShow =ref()
+
+const SearchList=ref()
 
 const GameRecommand=ref()
 onMounted(()=>{
@@ -39,6 +47,12 @@ onMounted(()=>{
     )
   }).catch(error=>{console.log(error)})
 
+  axios.get("/game/show/19/40").then((respon)=>{
+    gameList.value=respon.data.data
+    SearchList.value=defineAsyncComponent(() =>
+        import("@/components/Game/SearchList.vue")
+    )
+  }).catch(error=>{console.log(error)})
 
 })
 </script>

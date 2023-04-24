@@ -4,10 +4,10 @@
 
     <!--  固定头  -->
     <div style="position:relative;background-color: rgb(0 0 0 / 0%);z-index: 5;margin-bottom: 50px">
-      <!--愿望单-->
-      <div class="wishList pointerStyle">
-        <a>愿望单</a>
-      </div>
+<!--      &lt;!&ndash;愿望单&ndash;&gt;-->
+<!--      <div class="wishList pointerStyle">-->
+<!--        <a>愿望单</a>-->
+<!--      </div>-->
 
 
       <!--    搜索框-->

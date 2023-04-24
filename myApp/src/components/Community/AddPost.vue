@@ -30,8 +30,10 @@ import {useRoute,useRouter} from "vue-router";
 import dayjs from "dayjs";
 import axios from "axios";
 import {useUserStore} from "@/stores/User";
+import {ElMessage} from "element-plus";
 
 const route = useRoute()
+const router = useRouter()
 const store = useUserStore()
 
 const formData = reactive({
@@ -39,6 +41,7 @@ const formData = reactive({
   contents:"",
   userName:"",
   createdTime:"",
+  lastReplyTime:"",
   boardId:"",
 })
 
@@ -46,8 +49,14 @@ const addPost = () => {
   formData.boardId = route.query.boardId
   formData.userName = store.$state.user.name
   formData.createdTime = dayjs().toString()
+  formData.lastReplyTime = dayjs().toString()
   axios.post("/addPost",formData).then((respon)=>{
-
+    if(respon.data.code==200){
+      ElMessage.success("发布成功")
+    }else{
+      ElMessage.error("发布失败")
+    }
+    router.push({name:'postList'})
   }).catch(error=>console.log(error))
 }
 

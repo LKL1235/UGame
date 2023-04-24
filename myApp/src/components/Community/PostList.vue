@@ -11,7 +11,7 @@
           </a>
           <div style="text-align: right">
             <a style="color: #FFFFFF;font-size: 11px;" @click="router.push({path:'/community/postList',query:{boardId:posts[index].boardId,boardName:posts[index].boardName}})">
-              {{"来自："+posts[index].boardName+" 最后回复时间: "+ (posts[index]?.lastReplyTime=="null"?"无":posts[index]?.lastReplyTime?.substring(0,19))}}
+              {{"来自："+posts[index].boardName+" 最后回复时间: "+ (posts[index]?.lastReplyTime==undefined?"无":posts[index]?.lastReplyTime?.substring(0,19))}}
             </a>
           </div>
           <a style="color: #FFFFFF;font-size: 18px;float: none" @click="router.push({name:'postInfo',query:{postId:posts[index].postId}})">

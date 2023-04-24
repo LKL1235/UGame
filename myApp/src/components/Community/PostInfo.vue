@@ -53,6 +53,7 @@ import {useRoute,useRouter} from "vue-router";
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import {useUserStore} from "@/stores/User";
 import dayjs from "dayjs";
+import { ElMessage } from 'element-plus'
 
 const currentPage = ref(1)
 const handleCurrentChange = ()=>{
@@ -83,8 +84,19 @@ const getReplies = ()=>{
 
 const addReply = ()=>{
   axios.post("/addReply",{contents:editorRef.value.getText(),userName:store.$state.user.name,postId:route.query.postId,createdTime:dayjs().toString()}).then((respon)=>{
+    if(respon.data.code==200){
+      ElMessage.success("发布成功")
+      valueHtml.value=""
+    }else{
+      ElMessage.error("发布失败")
+    }
 
   }).catch(error=>console.log(error))
+
+  axios.get("/getPostInfo",{params:{postId:route.query.postId}}).then((respon)=>{
+    postInfo.value = respon.data.data
+  }).catch(error=>{console.log(error)})
+  getReplies()
 }
 
 onMounted(()=>{

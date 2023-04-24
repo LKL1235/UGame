@@ -37,6 +37,13 @@
               <span style="color: #6dcff6;">{{item.userName}}</span>
             </div>
           </el-badge>
+
+          <n-dropdown trigger="click" :options="options" @select="handleSelect(item.userName)">
+              <n-icon size="25" color="#FFFFFF" >
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24"><path d="M6 10c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm12 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2zm-6 0c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2z" fill="currentColor"></path></svg>
+              </n-icon>
+          </n-dropdown>
+
         </div>
 
       </div>
@@ -104,7 +111,7 @@ import {ElMessage, ElMessageBox} from "element-plus";
 import dayjs from 'dayjs'
 import * as constants from "constants";
 import ChatMessage from "@/components/Chat/ChatMessage.vue";
-import { Top } from '@element-plus/icons-vue'
+import { Top,More } from '@element-plus/icons-vue'
 
 var socket;
 
@@ -114,6 +121,24 @@ const User=useUserStore()
 const friendApplyList = ref([])
 const friendList = ref ([])
 const newMessageFriend = ref([])
+
+const options = ref([ {
+  label: '删除好友',
+  key: ''
+}])
+
+const handleSelect = (userName:string)=> {
+
+  axios.get(`/deleteFriend?fromUser=${User.$state.user.name}&toUser=${userName}`).then((respon)=>{
+    if(respon.data.code==200){
+      ElMessage.success(`删除 ${userName} 成功`)
+      refreshFriend()
+    }else {
+      ElMessage.error(`删除 ${userName} 失败`)
+      refreshFriend()
+    }
+  }).catch(error=>{console.log(error)})
+}
 
 
 const apply = (fromUser:string) => {

@@ -14,15 +14,14 @@ import com.myApp.gamestore.service.MessageService;
 import com.myApp.gamestore.service.UserService;
 import com.myApp.gamestore.utils.ResultCode;
 import com.myApp.gamestore.utils.myResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -33,6 +32,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 @RestController
 public class ChatController {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ChatController.class);
     @Autowired
     private FriendApplyService friendApplyService;
     @Autowired
@@ -77,6 +77,33 @@ public class ChatController {
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),save);
     }
 
+    @RequestMapping("/deleteFriend")
+    public myResult deleteFriend(@RequestParam(required = true,name = "fromUser") String fromUser, @RequestParam(required = true , name="toUser") String toUser){
+        QueryWrapper<Friend> queryWrapper = new QueryWrapper<Friend>();
+        queryWrapper.eq("user_name",fromUser);
+        queryWrapper.eq("friend_name",toUser);
+        Friend friend = friendService.getOne(queryWrapper);
+        friendService.removeById(friend);
+
+        QueryWrapper<Friend> queryWrapper2 = new QueryWrapper<Friend>();
+        queryWrapper2.eq("user_name",toUser);
+        queryWrapper2.eq("friend_name",fromUser);
+        Friend friend2 = friendService.getOne(queryWrapper2);
+        friendService.removeById(friend2);
+
+        QueryWrapper<FriendApply> friendApplyQueryWrapper = new QueryWrapper<>();
+        friendApplyQueryWrapper.eq("from_user",fromUser);
+        friendApplyQueryWrapper.eq("to_user",toUser);
+        friendApplyService.remove(friendApplyQueryWrapper);
+
+        QueryWrapper<FriendApply> friendApplyQueryWrapper2 = new QueryWrapper<>();
+        friendApplyQueryWrapper2.eq("to_user",fromUser);
+        friendApplyQueryWrapper2.eq("from_user",toUser);
+        friendApplyService.remove(friendApplyQueryWrapper2);
+
+
+        return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg());
+    }
 
     @RequestMapping("/updateFriendApply")
     public myResult updateFriendApply(@RequestParam(required = true,name = "fromUser") String fromUser, @RequestParam(required = true , name="toUser") String toUser){
@@ -141,7 +168,18 @@ public class ChatController {
         queryWrapper.eq("from_user_name",userName);
         queryWrapper.eq("to_user_name",friend);
         queryWrapper.orderByAsc("time_stamp");
-        List<Message> list = messageService.list(queryWrapper);
+        List<Message> list1 = messageService.list(queryWrapper);
+
+        QueryWrapper<Message> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("from_user_name",friend);
+        queryWrapper2.eq("to_user_name",userName);
+        queryWrapper2.orderByAsc("time_stamp");
+        List<Message> list2 = messageService.list(queryWrapper2);
+
+        List<Message> list =  new ArrayList<>();
+        list.addAll(list1);
+        list.addAll(list2);
+        list.sort(Comparator.comparing(Message::getId));
         return new myResult(ResultCode.SUCCESS.getCode(), ResultCode.SUCCESS.getMsg(),list);
     }
 }

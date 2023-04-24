@@ -2,7 +2,7 @@
   <div class="main">
 
     <div class="boards" v-for="(board,index) in boardNum">
-      <div class="board" @click="router.push({name:'postList',query:{boardId:boards[index]?.boardId}})">
+      <div class="board" @click="router.push({name:'postList',query:{boardId:boards[index]?.boardId,boardName:boards[index]?.boardName}})">
         <a style="color: #FFFFFF;font-size: 28px">
           {{boards[index]?.boardName.length>15?boards[index]?.boardName.substring(0,15)+"...":boards[index]?.boardName}}
         </a>
